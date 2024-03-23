@@ -1,7 +1,7 @@
-import App from './App.svelte';
+import Signup from './signup/Signup.svelte';
 
-var app = new App({
+var signup = new Signup({
 	target: document.body
 });
 
-export default app;
+export default signup;
