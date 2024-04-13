@@ -1,5 +1,6 @@
 <script>
-    import { onMount } from "svelte";
+    import {onMount} from "svelte";
+    import { goto } from "$app/navigation";
 
     let code, state;
 
@@ -11,14 +12,13 @@
         doNaverOauthLogin(code, state);
     });
 
-    async function doNaverOauthLogin(code, state1) {
+    async function doNaverOauthLogin(code, state) {
         const data = {
             authCode: code,
-            state: state1
+            state: state
         };
 
         try {
-            console.log(data)
             const response = await fetch(
                 "http://localhost:8080/api/oauth/naver",
                 {
@@ -31,15 +31,21 @@
             );
 
             if (!response.ok) {
-                throw new Error("Network response was not ok");
+                throw new Error("Network response was not ok" + response.error);
             }
 
-            const responseData = await response.json();
-            console.log(responseData);
+            // const responseData = await response.json();
+            response.text().then((refresh) => {
+                let accessToken = response.headers.get("Authorization");
+                console.log("refresh: " + refresh)
+                console.log("access: " + accessToken)
+            })
+
+            await goto("/");
         } catch (error) {
             console.error(
                 "There was a problem with the fetch operation:",
-                error,
+                error.message,
             );
         }
     }
