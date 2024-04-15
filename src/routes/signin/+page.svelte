@@ -47,6 +47,20 @@
 
         window.location.href = loginUrl; // 현재 페이지를 리다이렉트하여 GET 요청을 보냄
     }
+
+    async function handleGoogleLogin() {
+        const state = encodeURIComponent(generateUniqueState());
+        const loginUrl = 'https://accounts.google.com/o/oauth2/v2/auth?client_id=' +
+            "1085637831125-5pm146uki559a93ao5gdhd6bel91pmf0.apps.googleusercontent.com" +
+            '&redirect_uri=' +
+            "http://localhost:5173/signin/google/callback" +
+            '&response_type=code' +
+            '&scope=email profile' +
+            '&state='+state;
+
+        window.location.href = loginUrl; // 현재 페이지를 리다이렉트하여 GET 요청을 보냄
+    }
+
 </script>
 
 <div class="container">
@@ -62,6 +76,10 @@
 
     <button class="oauth-button" on:click={handleKakaoLogin}>
         <img src="src/lib/images/kakaologin.png" alt="카카오 로그인" />
+    </button>
+
+    <button class="oauth-button" on:click={handleGoogleLogin}>
+        <img src="src/lib/images/googlelogin.png" alt="구글 로그인" />
     </button>
 </div>
 
