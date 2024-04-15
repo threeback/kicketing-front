@@ -10,17 +10,17 @@
         code = searchParams.get("code");
         state = searchParams.get("state");
 
-        doNaverOauthLogin(code, state);
+        doKakaoOauthLogin(code, state);
     });
 
-    async function doNaverOauthLogin(code, state) {
+    async function doKakaoOauthLogin(code, state) {
         const data = {
             authCode: code,
             state: state
         };
 
         try {
-            const response = await fetch(endpoints.oauth+"/naver",
+            const response = await fetch(endpoints.oauth+"/kakao",
                 {
                     method: "POST",
                     headers: {

@@ -32,6 +32,21 @@
 
         window.location.href = loginUrl; // 현재 페이지를 리다이렉트하여 GET 요청을 보냄
     }
+
+    async function handleKakaoLogin() {
+        const responseType = "code";
+        const clientId = "f7b6f4aed2edf392e73a697adee24827";
+        const redirectUri = encodeURIComponent(
+            "http://localhost:5173/signin/kakao/callback",
+        );
+        const state = encodeURIComponent(generateUniqueState());
+        const scope = ""; // 스코프는 필요에 따라 설정
+
+        // 요청 URL 생성
+        const loginUrl = `https://kauth.kakao.com/oauth/authorize?response_type=${responseType}&client_id=${clientId}&redirect_uri=${redirectUri}&state=${state}`;
+
+        window.location.href = loginUrl; // 현재 페이지를 리다이렉트하여 GET 요청을 보냄
+    }
 </script>
 
 <div class="container">
@@ -41,8 +56,12 @@
 
     <button class="blue-button" on:click={handleLogin}>로그인</button>
 
-    <button class="naver-button" on:click={handleNaverLogin}>
+    <button class="oauth-button" on:click={handleNaverLogin}>
         <img src="src/lib/images/naverlogin.png" alt="네이버 로그인" />
+    </button>
+
+    <button class="oauth-button" on:click={handleKakaoLogin}>
+        <img src="src/lib/images/kakaologin.png" alt="카카오 로그인" />
     </button>
 </div>
 
@@ -83,7 +102,7 @@
         color: #fff;
     }
 
-    .naver-button {
+    .oauth-button {
         width: 150px;
         border: none; /* 버튼 테두리 제거 */
         background: none; /* 버튼 배경 제거 */
@@ -92,7 +111,7 @@
     }
 
     /* 이미지 스타일링 */
-    .naver-button img {
+    .oauth-button img {
         width: 150px; /* 이미지의 너비를 100px로 설정 */
         height: auto; /* 이미지의 높이를 자동으로 조정하여 비율 유지 */
     }
