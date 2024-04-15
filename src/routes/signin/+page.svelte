@@ -1,5 +1,5 @@
 <script>
-    import { v4 as uuidv4 } from 'uuid';
+    import { v4 as uuidv4 } from "uuid";
 
     function generateUniqueState() {
         return uuidv4();
@@ -35,12 +35,6 @@
 </script>
 
 <div class="container">
-    <img
-        class="logo"
-        src="https://github.com/ccihxn/game/assets/35947666/1968f4c2-6516-4c3b-aded-ec3cb3a2cb4a"
-        alt="로고"
-    />
-
     <h2>로그인</h2>
     <input type="text" placeholder="아이디" bind:value={username} />
     <input type="password" placeholder="비밀번호" bind:value={password} />
@@ -48,7 +42,7 @@
     <button class="blue-button" on:click={handleLogin}>로그인</button>
 
     <button class="naver-button" on:click={handleNaverLogin}>
-        <img src="src/lib/images/naverlogin.png" alt="네이버 로그인">
+        <img src="src/lib/images/naverlogin.png" alt="네이버 로그인" />
     </button>
 </div>
 
@@ -58,7 +52,7 @@
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        height: 100vh;
+        height: 60vh;
         font-family: "GmarketSansMedium", sans-serif;
     }
 
@@ -82,12 +76,6 @@
         cursor: pointer;
         position: relative;
         padding-left: 30px; /* 아이콘을 버튼 내에 왼쪽에 위치시키기 위한 여백 추가 */
-    }
-
-    .logo {
-        margin-bottom: 10px;
-        width: 200px;
-        height: auto;
     }
 
     .blue-button {

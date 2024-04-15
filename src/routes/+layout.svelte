@@ -1,6 +1,6 @@
 <script>
-	import Header from './Header.svelte';
-	import './styles.css';
+	import Header from "./Header.svelte";
+	import "./styles.css";
 </script>
 
 <div class="app">
@@ -9,9 +9,9 @@
 	<main>
 		<slot />
 	</main>
-
+	<hr />
 	<footer>
-		<p>visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to learn SvelteKit</p>
+		<div>Kicketing Corp. All Copyright reserved.</div>
 	</footer>
 </div>
 
@@ -20,6 +20,10 @@
 		display: flex;
 		flex-direction: column;
 		min-height: 100vh;
+	}
+
+	hr {
+		width: 99%;
 	}
 
 	main {
@@ -35,14 +39,11 @@
 
 	footer {
 		display: flex;
+		margin: 15px;
 		flex-direction: column;
 		justify-content: center;
-		align-items: center;
+		align-items: left;
 		padding: 12px;
-	}
-
-	footer a {
-		font-weight: bold;
 	}
 
 	@media (min-width: 480px) {
