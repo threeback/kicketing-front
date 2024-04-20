@@ -1,5 +1,8 @@
 <script>
     import { v4 as uuidv4 } from "uuid";
+    import { googleOauthApi } from "$lib/api";
+    import { kakaoOauthApi } from "$lib/api";
+    import { naverOauthApi } from "$lib/api";
 
     function generateUniqueState() {
         return uuidv4();
@@ -20,16 +23,33 @@
 
     async function handleNaverLogin() {
         const responseType = "code";
-        const clientId = "aYP4gwQE8RjQby7a7Umc";
-        const redirectUri = encodeURIComponent(
-            "http://localhost:5173/signin/naver/callback",
-        );
+        const clientId = `${naverOauthApi.clientId}`;
+        const redirectUri = encodeURIComponent(`${naverOauthApi.redirectUri}`);
         const state = encodeURIComponent(generateUniqueState());
         const scope = ""; // 스코프는 필요에 따라 설정
 
         // 요청 URL 생성
-        const loginUrl = `https://nid.naver.com/oauth2.0/authorize?response_type=${responseType}&client_id=${clientId}&redirect_uri=${redirectUri}&state=${state}`;
+        const loginUrl = `${naverOauthApi.uri}?response_type=${responseType}&client_id=${clientId}&redirect_uri=${redirectUri}&state=${state}`;
 
+        window.location.href = loginUrl; // 현재 페이지를 리다이렉트하여 GET 요청을 보냄
+    }
+
+    async function handleKakaoLogin() {
+        const responseType = "code";
+        const clientId = `${kakaoOauthApi.clientId}`;
+        const redirectUri = encodeURIComponent(`${kakaoOauthApi.redirectUri}`);
+        const state = encodeURIComponent(generateUniqueState());
+        const scope = ""; // 스코프는 필요에 따라 설정
+
+        // 요청 URL 생성
+        const loginUrl = `${kakaoOauthApi.uri}?response_type=${responseType}&client_id=${clientId}&redirect_uri=${redirectUri}&state=${state}`;
+
+        window.location.href = loginUrl; // 현재 페이지를 리다이렉트하여 GET 요청을 보냄
+    }
+
+    async function handleGoogleLogin() {
+        const state = encodeURIComponent(generateUniqueState());
+        const loginUrl = `${googleOauthApi.uri}?client_id=${googleOauthApi.clientId}&redirect_uri=${googleOauthApi.redirectUri}&response_type=code&scope=email profile&state=${state}`;
         window.location.href = loginUrl; // 현재 페이지를 리다이렉트하여 GET 요청을 보냄
     }
 </script>
@@ -41,8 +61,16 @@
 
     <button class="blue-button" on:click={handleLogin}>로그인</button>
 
-    <button class="naver-button" on:click={handleNaverLogin}>
+    <button class="oauth-button" on:click={handleNaverLogin}>
         <img src="src/lib/images/naverlogin.png" alt="네이버 로그인" />
+    </button>
+
+    <button class="oauth-button" on:click={handleKakaoLogin}>
+        <img src="src/lib/images/kakaologin.png" alt="카카오 로그인" />
+    </button>
+
+    <button class="oauth-button" on:click={handleGoogleLogin}>
+        <img src="src/lib/images/googlelogin.png" alt="구글 로그인" />
     </button>
 </div>
 
@@ -83,7 +111,7 @@
         color: #fff;
     }
 
-    .naver-button {
+    .oauth-button {
         width: 150px;
         border: none; /* 버튼 테두리 제거 */
         background: none; /* 버튼 배경 제거 */
@@ -92,7 +120,7 @@
     }
 
     /* 이미지 스타일링 */
-    .naver-button img {
+    .oauth-button img {
         width: 150px; /* 이미지의 너비를 100px로 설정 */
         height: auto; /* 이미지의 높이를 자동으로 조정하여 비율 유지 */
     }

@@ -4,6 +4,7 @@
     import { goto } from "$app/navigation";
     import { setRefreshToken } from "$lib/stores/auth.js";
 
+
     let code, state;
 
     onMount(() => {
@@ -11,17 +12,17 @@
         code = searchParams.get("code");
         state = searchParams.get("state");
 
-        doNaverOauthLogin(code, state);
+        doKakaoOauthLogin(code, state);
     });
 
-    async function doNaverOauthLogin(code, state) {
+    async function doKakaoOauthLogin(code, state) {
         const data = {
             authCode: code,
             state: state
         };
 
         try {
-            const response = await fetch(endpoints.oauth+"/naver",
+            const response = await fetch(endpoints.oauth+"/kakao",
                 {
                     method: "POST",
                     headers: {
@@ -42,7 +43,7 @@
 
             await goto("/");
         } catch (error) {
-            alert("네이버 로그인 실패: " + error.message)
+            alert("카카오 로그인 실패: " + error.message)
             goto("/signin")
         }
     }
