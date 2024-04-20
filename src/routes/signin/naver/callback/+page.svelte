@@ -2,6 +2,7 @@
     import { endpoints } from "$lib/api";
     import {onMount} from "svelte";
     import { goto } from "$app/navigation";
+    import { setRefreshToken } from "$lib/stores/auth.js";
 
     let code, state;
 
@@ -34,6 +35,10 @@
             if (!response.ok) {
                 throw new Error("Network response was not ok" + response.error);
             }
+
+            response.text().then((refreshToken) => {
+                setRefreshToken(refreshToken);
+            })
 
             await goto("/");
         } catch (error) {
