@@ -1,5 +1,8 @@
 <script>
     import { v4 as uuidv4 } from "uuid";
+    import { googleOauthApi } from "$lib/api";
+    import { kakaoOauthApi } from "$lib/api";
+    import { naverOauthApi } from "$lib/api";
 
     function generateUniqueState() {
         return uuidv4();
@@ -20,47 +23,35 @@
 
     async function handleNaverLogin() {
         const responseType = "code";
-        const clientId = "aYP4gwQE8RjQby7a7Umc";
-        const redirectUri = encodeURIComponent(
-            "http://localhost:5173/signin/naver/callback",
-        );
+        const clientId = `${naverOauthApi.clientId}`;
+        const redirectUri = encodeURIComponent(`${naverOauthApi.redirectUri}`);
         const state = encodeURIComponent(generateUniqueState());
         const scope = ""; // 스코프는 필요에 따라 설정
 
         // 요청 URL 생성
-        const loginUrl = `https://nid.naver.com/oauth2.0/authorize?response_type=${responseType}&client_id=${clientId}&redirect_uri=${redirectUri}&state=${state}`;
+        const loginUrl = `${naverOauthApi.uri}?response_type=${responseType}&client_id=${clientId}&redirect_uri=${redirectUri}&state=${state}`;
 
         window.location.href = loginUrl; // 현재 페이지를 리다이렉트하여 GET 요청을 보냄
     }
 
     async function handleKakaoLogin() {
         const responseType = "code";
-        const clientId = "f7b6f4aed2edf392e73a697adee24827";
-        const redirectUri = encodeURIComponent(
-            "http://localhost:5173/signin/kakao/callback",
-        );
+        const clientId = `${kakaoOauthApi.clientId}`;
+        const redirectUri = encodeURIComponent(`${kakaoOauthApi.redirectUri}`);
         const state = encodeURIComponent(generateUniqueState());
         const scope = ""; // 스코프는 필요에 따라 설정
 
         // 요청 URL 생성
-        const loginUrl = `https://kauth.kakao.com/oauth/authorize?response_type=${responseType}&client_id=${clientId}&redirect_uri=${redirectUri}&state=${state}`;
+        const loginUrl = `${kakaoOauthApi.uri}?response_type=${responseType}&client_id=${clientId}&redirect_uri=${redirectUri}&state=${state}`;
 
         window.location.href = loginUrl; // 현재 페이지를 리다이렉트하여 GET 요청을 보냄
     }
 
     async function handleGoogleLogin() {
         const state = encodeURIComponent(generateUniqueState());
-        const loginUrl = 'https://accounts.google.com/o/oauth2/v2/auth?client_id=' +
-            "1085637831125-5pm146uki559a93ao5gdhd6bel91pmf0.apps.googleusercontent.com" +
-            '&redirect_uri=' +
-            "http://localhost:5173/signin/google/callback" +
-            '&response_type=code' +
-            '&scope=email profile' +
-            '&state='+state;
-
+        const loginUrl = `${googleOauthApi.uri}?client_id=${googleOauthApi.clientId}&redirect_uri=${googleOauthApi.redirectUri}&response_type=code&scope=email profile&state=${state}`;
         window.location.href = loginUrl; // 현재 페이지를 리다이렉트하여 GET 요청을 보냄
     }
-
 </script>
 
 <div class="container">
