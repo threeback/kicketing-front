@@ -3,22 +3,43 @@
     import { googleOauthApi } from "$lib/api";
     import { kakaoOauthApi } from "$lib/api";
     import { naverOauthApi } from "$lib/api";
+    import { endpoints } from "$lib/api";
+    import { goto } from "$app/navigation";
 
     function generateUniqueState() {
         return uuidv4();
     }
 
-    let username = "";
+    let email= "";
     let password = "";
     let rememberMe = false;
     let autoLogin = false;
 
-    function handleLogin() {
-        if (username === "user" && password === "password") {
-            alert("로그인 성공!");
-        } else {
-            alert("아이디 또는 비밀번호가 잘못되었습니다.");
+    async function handleLogin() {
+
+        if(email.trim() == "" || password.trim() == ""){
+            alert("로그인 정보를 정확히 입력하세요.");
+            return;
         }
+
+        const response = await fetch(endpoints.signin, {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify({
+				email,
+				password,
+			}),
+		});
+
+        if (response.ok) {
+			goto("/");
+		} else {
+			alert("이메일 또는 비밀번호가 잘못되었습니다.");
+            return;
+		}
+
     }
 
     async function handleNaverLogin() {
@@ -53,10 +74,10 @@
         window.location.href = loginUrl; // 현재 페이지를 리다이렉트하여 GET 요청을 보냄
     }
 </script>
-
+<title>로그인</title>
 <div class="container">
     <h2>로그인</h2>
-    <input type="text" placeholder="아이디" bind:value={username} />
+    <input type="text" placeholder="아이디" bind:value={email} />
     <input type="password" placeholder="비밀번호" bind:value={password} />
 
     <button class="blue-button" on:click={handleLogin}>로그인</button>

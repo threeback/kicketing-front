@@ -35,6 +35,8 @@
 
 		if (response.ok) {
 			alert("3분 이내에 인증을 완료하세요.");
+		} else if(response.status == 409) {
+			alert("이미 가입된 이메일입니다.")
 		} else {
 			alert("이메일 전송에 실패하였습니다.");
 		}
@@ -99,7 +101,7 @@
 </script>
 
 <!--div-->
-
+<title>회원가입</title>
 <div class="container">
 	<form on:submit|preventDefault={submitForm}>
 		<div>
