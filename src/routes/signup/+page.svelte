@@ -101,7 +101,7 @@
 </script>
 
 <!--div-->
-
+<title>회원가입</title>
 <div class="container">
 	<form on:submit|preventDefault={submitForm}>
 		<div>

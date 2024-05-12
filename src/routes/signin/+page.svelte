@@ -74,7 +74,7 @@
         window.location.href = loginUrl; // 현재 페이지를 리다이렉트하여 GET 요청을 보냄
     }
 </script>
-
+<title>로그인</title>
 <div class="container">
     <h2>로그인</h2>
     <input type="text" placeholder="아이디" bind:value={email} />
