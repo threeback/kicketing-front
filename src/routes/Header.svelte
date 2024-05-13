@@ -8,6 +8,6 @@
 	.logo {
 		margin: 30px;
 		width: 200px;
-		height: auto\\;
+		height: auto;
 	}
 </style>

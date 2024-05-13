@@ -11,7 +11,7 @@
 			title: 'IU Concert: The Golden hour',
 			date: '2023-09-28~30',
 			location: '잠실올림픽주경기장',
-			imageURL: 'src/lib/images/iu_poster.jpg',
+			imageURL: 'src/lib/images/main/iu_poster.jpg',
 			goto: '/signin'
 		},
 		{
@@ -19,14 +19,14 @@
 			title: 'CHANGMO: UNDERGROUND ROCKSTAR 2020',
 			date: '2020-03-04~18',
 			location: 'NORTH AMERICA',
-			imageURL: 'src/lib/images/changmo_poster.jpeg',
+			imageURL: 'src/lib/images/main/changmo_poster.jpeg',
 			goto: '/signin'
 		},{
 			id: 1,
 			title: 'IU Concert: The Golden hour',
 			date: '2023-09-28~30',
 			location: '잠실올림픽주경기장',
-			imageURL: 'src/lib/images/iu_poster.jpg',
+			imageURL: 'src/lib/images/main/iu_poster.jpg',
 			goto: '/signin'
 		},
 		{
@@ -34,14 +34,14 @@
 			title: 'CHANGMO: UNDERGROUND ROCKSTAR 2020',
 			date: '2020-03-04~18',
 			location: 'NORTH AMERICA',
-			imageURL: 'src/lib/images/changmo_poster.jpeg',
+			imageURL: 'src/lib/images/main/changmo_poster.jpeg',
 			goto: '/signin'
 		},{
 			id: 1,
 			title: 'IU Concert: The Golden hour',
 			date: '2023-09-28~30',
 			location: '잠실올림픽주경기장',
-			imageURL: 'src/lib/images/iu_poster.jpg',
+			imageURL: 'src/lib/images/main/iu_poster.jpg',
 			goto: '/signin'
 		},
 		{
@@ -49,14 +49,14 @@
 			title: 'CHANGMO: UNDERGROUND ROCKSTAR 2020',
 			date: '2020-03-04~18',
 			location: 'NORTH AMERICA',
-			imageURL: 'src/lib/images/changmo_poster.jpeg',
+			imageURL: 'src/lib/images/main/changmo_poster.jpeg',
 			goto: '/signin'
 		},{
 			id: 1,
 			title: 'IU Concert: The Golden hour',
 			date: '2023-09-28~30',
 			location: '잠실올림픽주경기장',
-			imageURL: 'src/lib/images/iu_poster.jpg',
+			imageURL: 'src/lib/images/main/iu_poster.jpg',
 			goto: '/signin'
 		},
 		{
@@ -64,14 +64,14 @@
 			title: 'CHANGMO: UNDERGROUND ROCKSTAR 2020',
 			date: '2020-03-04~18',
 			location: 'NORTH AMERICA',
-			imageURL: 'src/lib/images/changmo_poster.jpeg',
+			imageURL: 'src/lib/images/main/changmo_poster.jpeg',
 			goto: '/signin'
 		},{
 			id: 1,
 			title: 'IU Concert: The Golden hour',
 			date: '2023-09-28~30',
 			location: '잠실올림픽주경기장',
-			imageURL: 'src/lib/images/iu_poster.jpg',
+			imageURL: 'src/lib/images/main/iu_poster.jpg',
 			goto: '/signin'
 		},
 		{
@@ -79,7 +79,7 @@
 			title: 'CHANGMO: UNDERGROUND ROCKSTAR 2020',
 			date: '2020-03-04~18',
 			location: 'NORTH AMERICA',
-			imageURL: 'src/lib/images/changmo_poster.jpeg',
+			imageURL: 'src/lib/images/main/changmo_poster.jpeg',
 			goto: '/signin'
 		}
 	];
@@ -308,7 +308,7 @@
 		<input type="text" placeholder="검색할 공연 정보를 입력해주세요." bind:value={searchTerm}>
 
 		<button class="search-button">
-			<img src="src/lib/images/search.png" alt=""/>
+			<img src="src/lib/images/main/search.png" alt=""/>
 		</button>
 
 	</div>
@@ -361,10 +361,10 @@
 		{/each}
 	</div>
 	<button class="scroll-button" style="left: 10px"on:click={scrollLeft}>
-		<img src="src/lib/images/left.png" alt=""/>
+		<img src="src/lib/images/main/left.png" alt=""/>
 	</button>
 	<button class="scroll-button" style="right: 10px"on:click={scrollRight}>
-		<img src="src/lib/images/right.png" alt=""/>
+		<img src="src/lib/images/main/right.png" alt=""/>
 	</button>
 <!--	<div class="swiper-container">-->
 <!--		<div class="swiper-button-prev" style="left: 10px">-->
