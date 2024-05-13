@@ -24,7 +24,7 @@
         if (allAgreed) {
             // 모든 약관에 동의한 경우
             alert("회원가입이 완료되었습니다.");
-            goto("/");
+            goto("/signin");
         } else {
             alert("약관에 동의하지 않은 항목이 있습니다. 모두 동의해주세요.");
         }
@@ -243,5 +243,5 @@
     </div>
     <br>
     <br>
-    <button class="blue-button" on:click={checkAgreement} >동의 및 회원가입 진행</button>
+    <button class="blue-button" on:click={checkAgreement} >동의 및 회원가입 완료</button>
 </main>
