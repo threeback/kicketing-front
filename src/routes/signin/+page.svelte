@@ -81,7 +81,7 @@
     <input type="password" placeholder="비밀번호" bind:value={password} />
 
     <div class="auth-buttons">
-        <span>아직 회원이 아니십니까?</span>
+        <span>아직 키켓팅의 회원이 아니라면?</span>
         <a href="/signup">회원가입 바로가기</a>
     </div>
 
