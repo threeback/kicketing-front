@@ -80,19 +80,26 @@
     <input type="text" placeholder="아이디" bind:value={email} />
     <input type="password" placeholder="비밀번호" bind:value={password} />
 
+    <div class="auth-buttons">
+        <span>아직 키켓팅의 회원이 아니라면?</span>
+        <a href="/signup">회원가입 바로가기</a>
+    </div>
+
     <button class="blue-button" on:click={handleLogin}>로그인</button>
 
-    <button class="oauth-button" on:click={handleNaverLogin}>
-        <img src="src/lib/images/naverlogin.png" alt="네이버 로그인" />
-    </button>
+    <div class="oauth-container">
+        <button class="oauth-button" on:click={handleNaverLogin}>
+            <img src="src/lib/images/naverlogin.png" alt="네이버 로그인" />
+        </button>
 
-    <button class="oauth-button" on:click={handleKakaoLogin}>
-        <img src="src/lib/images/kakaologin.png" alt="카카오 로그인" />
-    </button>
+        <button class="oauth-button" on:click={handleKakaoLogin}>
+            <img src="src/lib/images/kakaologin.png" alt="카카오 로그인" />
+        </button>
 
-    <button class="oauth-button" on:click={handleGoogleLogin}>
-        <img src="src/lib/images/googlelogin.png" alt="구글 로그인" />
-    </button>
+        <button class="oauth-button" on:click={handleGoogleLogin}>
+            <img src="src/lib/images/googlelogin.png" alt="구글 로그인" />
+        </button>
+    </div>
 </div>
 
 <style>
@@ -115,7 +122,7 @@
     button {
         margin-bottom: 10px;
         padding: 8px;
-        width: 40%;
+        width: 45%;
         box-sizing: border-box;
         border: 1px solid #ccc; /* 테두리 색상 변경 */
         border-radius: 11px;
@@ -132,6 +139,10 @@
         color: #fff;
     }
 
+    .oauth-container {
+        display: flex;
+    }
+
     .oauth-button {
         width: 150px;
         border: none; /* 버튼 테두리 제거 */
@@ -142,7 +153,22 @@
 
     /* 이미지 스타일링 */
     .oauth-button img {
-        width: 150px; /* 이미지의 너비를 100px로 설정 */
-        height: auto; /* 이미지의 높이를 자동으로 조정하여 비율 유지 */
+        width: 140px; /* 이미지의 너비를 100px로 설정 */
+        height: 35px; /* 이미지의 높이를 자동으로 조정하여 비율 유지 */
+    }
+
+    .auth-buttons {
+        padding: 5px;
+        font-size: 14px;
+    }
+
+    .auth-buttons a {
+        font-size: 14px;
+        color: #666;
+        text-decoration: underline;
+    }
+
+    .auth-buttons a:hover {
+        color: #333;
     }
 </style>
