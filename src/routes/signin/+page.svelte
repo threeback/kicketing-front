@@ -80,6 +80,11 @@
     <input type="text" placeholder="아이디" bind:value={email} />
     <input type="password" placeholder="비밀번호" bind:value={password} />
 
+    <div class="auth-buttons">
+        <span>아직 회원이 아니십니까?</span>
+        <a href="/signup">회원가입 바로가기</a>
+    </div>
+
     <button class="blue-button" on:click={handleLogin}>로그인</button>
 
     <button class="oauth-button" on:click={handleNaverLogin}>
@@ -144,5 +149,20 @@
     .oauth-button img {
         width: 150px; /* 이미지의 너비를 100px로 설정 */
         height: auto; /* 이미지의 높이를 자동으로 조정하여 비율 유지 */
+    }
+
+    .auth-buttons {
+        padding: 5px;
+        font-size: 14px;
+    }
+
+    .auth-buttons a {
+        font-size: 14px;
+        color: #666;
+        text-decoration: underline;
+    }
+
+    .auth-buttons a:hover {
+        color: #333;
     }
 </style>
