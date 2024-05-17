@@ -11,17 +11,17 @@
         code = searchParams.get("code");
         state = searchParams.get("state");
 
-        doNaverOauthLogin(code, state);
+        doGoogleOauthLogin(code, state);
     });
 
-    async function doNaverOauthLogin(code, state) {
+    async function doGoogleOauthLogin(code, state) {
         const data = {
             authCode: code,
             state: state
         };
 
         try {
-            const response = await fetch(endpoints.oauth+"/naver",
+            const response = await fetch(endpoints.oauth+"/google",
                 {
                     method: "POST",
                     headers: {
@@ -42,7 +42,7 @@
 
             await goto("/");
         } catch (error) {
-            alert("네이버 로그인 실패: " + error.message)
+            alert("구글 로그인 실패: " + error.message)
             goto("/signin")
         }
     }

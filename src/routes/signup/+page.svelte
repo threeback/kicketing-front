@@ -23,7 +23,7 @@
 		// 인증을 다시 시도하므로 false로 설정
 		emailVerified = false;
 
-		const response = await fetch(endpoints.signup + "/email/code", {
+		const response = await fetch(endpoints.signup + "/email-code", {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
@@ -35,6 +35,8 @@
 
 		if (response.ok) {
 			alert("3분 이내에 인증을 완료하세요.");
+		} else if(response.status == 409) {
+			alert("이미 가입된 이메일입니다.")
 		} else {
 			alert("이메일 전송에 실패하였습니다.");
 		}
@@ -42,7 +44,7 @@
 
 	async function verifyEmailCode() {
 		let code = emailVerificationCode;
-		const response = await fetch(endpoints.signup + "/email/confirm", {
+		const response = await fetch(endpoints.signup + "/email-confirm", {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
@@ -77,7 +79,7 @@
 			return;
 		}
 
-		const response = await fetch(endpoints.signup + "/", {
+		const response = await fetch(endpoints.signup, {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
@@ -90,7 +92,7 @@
 		});
 
 		if (response.ok) {
-			alert("회원가입이 완료되었습니다.");
+			alert("회원가입이 완료되었습니다.\r로그인 화면으로 이동합니다.");
 			goto("/signin");
 		} else {
 			alert("회원가입에 실패하였습니다.");
@@ -99,7 +101,7 @@
 </script>
 
 <!--div-->
-
+<title>회원가입</title>
 <div class="container">
 	<form on:submit|preventDefault={submitForm}>
 		<div>
