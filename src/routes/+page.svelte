@@ -331,7 +331,7 @@
 		<a href="/signin">
 			<button class="event-info-button">공지사항</button>
 		</a>
-		<a href="/signin">
+		<a href="/mypage/verify">
 			<button class="event-info-button">마이페이지</button>
 		</a>
 		<a href="/signin">
