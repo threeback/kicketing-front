@@ -14,16 +14,15 @@
 </ul>
 {#each items as item}
     {#if activeTabValue == item.value}
-        <div class="box">
+        <div class="tab-box">
             <svelte:component this={item.component}/>
         </div>
     {/if}
 {/each}
 <style>
-    .box {
+    .tab-box {
         margin-bottom: 10px;
         padding: 40px;
-        /*border: 1px solid #dee2e6;*/
         border-radius: 0 0 .5rem .5rem;
         border-top: 0;
     }

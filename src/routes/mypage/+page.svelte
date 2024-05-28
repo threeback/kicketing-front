@@ -1,24 +1,24 @@
 <script>
-    import password_tab from "./tabs/password_tab.svelte";
-    import address_tab from "./tabs/address_tab.svelte";
+    import privacy_tab from "./tabs/privacy_tab.svelte";
     import booking_tab from "./tabs/booking_tab.svelte";
+    import cancel_tab from "./tabs/cancel_tab.svelte";
     import Tabs from "./tabs/tabs.svelte";
 
     let items = [
         {
-            label: "비밀번호 변경",
+            label: "개인정보 변경",
             value: 1,
-            component: password_tab
-        },
-        {
-            label: "주소지 변경",
-            value: 2,
-            component: address_tab
+            component: privacy_tab
         },
         {
             label: "예매내역 확인",
-            value: 3,
+            value: 2,
             component: booking_tab
+        },
+        {
+            label: "예매 취소 내역",
+            value: 3,
+            component: cancel_tab
         }
     ];
 </script>

@@ -1,5 +1,4 @@
 <script>
-    // import "../../../../static/style/event.css";
     let events = [
         {
             id: 1,
@@ -88,51 +87,40 @@
             goto: '/signin'
         }
     ];
-
-    function scrollRight() {
-        const container = document.querySelector('.event-container');
-        if (container) {
-            container.scrollLeft += 300; // Adjust this value based on the card width
-            container.style.transition = 'all ease 2s 0s';
-        }
-    }
-
-    function scrollLeft() {
-        const container = document.querySelector('.event-container');
-        if (container) {
-            container.scrollLeft -= 300; // Adjust this value based on the card width
-            container.style.transition = 'all ease 2s 0s';
-        }
-    }
 </script>
 
 <style>
     @import url('../../../../static/style/event.css');
     @import url('../../../../static/style/button.css');
+
+    .right {
+        width: 25%;
+    }
 </style>
 
 <main class="event-list-container">
-        {#each events as event, index (event)}
-            <div class="eventlist-item">
-                <a href={event.goto}>
-                    <img src="{event.imageURL}" width="80px" alt="{event.title}" style="float: left; border-radius: 5px"/>
-                </a>
+    {#each events as event, index (event)}
+        <div class="eventlist-item">
+            <a href={event.goto}>
+                <img src="{event.imageURL}" width="80px" alt="{event.title}" style="float: left; border-radius: 5px"/>
+            </a>
 
-                <a href={event.goto}>
-                    <div class="eventlist-title">{event.title}</div>
-                    <div class="eventlist-details">
-                        <p>{event.location}</p>
-                        <p>{event.date}</p>
-                    </div>
-                </a>
-                <div class="right">
-                    <div style="text-align: center;">
-                        <div class="eventlist-title">예매 번호</div>
-                        <div class="eventlist-details">{event.orderNumber}</div>
-                    </div>
-                    <button class="red-button">예매 취소</button>
+            <a href={event.goto}>
+                <div class="eventlist-title">{event.title}</div>
+                <div class="eventlist-details">
+                    <p>{event.location}</p>
+                    <p>{event.date}</p>
                 </div>
+            </a>
+            <div class="right">
+                <div style="text-align: center;">
+                    <div class="eventlist-title">예매 번호</div>
+                    <div class="eventlist-details">{event.orderNumber}</div>
+                    <p>예매가 정상적으로 <br> 취소되었습니다.</p>
+                </div>
+                <button class="blue-button">다시 예매하러 가기</button>
             </div>
+        </div>
 
-        {/each}
+    {/each}
 </main>
