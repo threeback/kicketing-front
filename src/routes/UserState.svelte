@@ -10,12 +10,10 @@
                 'Content-Type': 'application/json'
             }
         });
-
-        if (response.ok) {
-            removeRefreshToken();
-            setLogout();
-            window.location.href = '/';
-        }
+        
+        removeRefreshToken();
+        setLogout();
+        window.location.href = '/';
     }
 </script>
 
@@ -39,8 +37,8 @@
 
 <div class="auth-buttons">
     {#if $isLoggedIn}
-        <a href="/mypage/verify">마이페이지</a>
-        <button style="margin-left: 6px" on:click={handleLogOut}>로그아웃</button>
+        <a href="/mypage">마이페이지</a>
+        <button style="margin-left: 6px; width : 80px" on:click={handleLogOut}>로그아웃</button>
     {:else}
         <a href="/signin">로그인</a>
         <a href="/signup">회원가입</a>

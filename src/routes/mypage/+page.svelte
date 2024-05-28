@@ -28,29 +28,9 @@
         margin-left: -100px;
         margin-right: -100px;
     }
-    
-    .auth-buttons {
-        position: absolute;
-        top: 20px;
-        right: 20px;
-    }
 
-    .auth-buttons a {
-        font-size: 14px;
-        color: #666;
-        text-decoration: underline;
-    }
-
-    .auth-buttons a:hover {
-        color: #333;
-    }
 </style>
 <main class="container">
-    <div class="auth-buttons">
-        <a href="/">홈으로</a>
-<!--        <a href="/signup">로그아웃</a>-->
-    </div>
     <h1 style="font-weight: bold; color: #000">마이페이지</h1>
-    <hr>
     <Tabs {items}/>
 </main>

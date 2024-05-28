@@ -2,7 +2,7 @@
     import {v4 as uuidv4} from "uuid";
     import {endpoints, googleOauthApi, kakaoOauthApi, naverOauthApi} from "$lib/api";
     import {goto} from "$app/navigation";
-    import { setRefreshToken, setLogin } from "$lib/stores/auth.js";
+    import {setLogin, setRefreshToken} from "$lib/stores/auth.js";
 
     function generateUniqueState() {
         return uuidv4();
@@ -22,6 +22,7 @@
 
         const response = await fetch(endpoints.signin, {
             method: "POST",
+            credentials: 'include',
             headers: {
                 "Content-Type": "application/json",
             },
@@ -157,20 +158,5 @@
     .oauth-button img {
         width: 140px; /* 이미지의 너비를 100px로 설정 */
         height: 35px; /* 이미지의 높이를 자동으로 조정하여 비율 유지 */
-    }
-
-    .auth-buttons {
-        padding: 5px;
-        font-size: 14px;
-    }
-
-    .auth-buttons a {
-        font-size: 14px;
-        color: #666;
-        text-decoration: underline;
-    }
-
-    .auth-buttons a:hover {
-        color: #333;
     }
 </style>
