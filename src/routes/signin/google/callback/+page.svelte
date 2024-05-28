@@ -2,7 +2,7 @@
     import { endpoints } from "$lib/api";
     import {onMount} from "svelte";
     import { goto } from "$app/navigation";
-    import { setRefreshToken } from "$lib/stores/auth.js";
+    import { setRefreshToken, setLogin } from "$lib/stores/auth.js";
 
     let code, state;
 
@@ -38,6 +38,7 @@
 
             response.text().then((refreshToken) => {
                 setRefreshToken(refreshToken);
+                setLogin();
             })
 
             await goto("/");

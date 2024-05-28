@@ -4,8 +4,10 @@ export const webUrl = import.meta.env.VITE_API_WEB;
 export const endpoints = {
     signup: `${apiEndpoint}/user/sign-up`,
     signin: `${apiEndpoint}/user/sign-in`,
+    signout: `${apiEndpoint}/user/sign-out`,
     refresh: `${apiEndpoint}/refresh`,
     oauth: `${apiEndpoint}/oauth`,
+    performances: `${apiEndpoint}/performances`
 }
 
 export const googleOauthApi = {
