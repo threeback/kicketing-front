@@ -1,10 +1,12 @@
 <script>
 	import Header from "./Header.svelte";
 	import "./styles.css";
+	import UserState from "./UserState.svelte";
 </script>
 
 <div class="app">
 	<Header />
+	<UserState />
 
 	<main>
 		<slot />

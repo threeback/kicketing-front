@@ -41,22 +41,6 @@
             container.style.transition = 'all ease 2s 0s';
         }
     }
-
-    async function handleLogOut() {
-        const response = await fetch(endpoints.signout, {
-            method: 'POST',
-            credentials: 'include',
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        });
-
-        if (response.ok) {
-            removeRefreshToken();
-            setLogout();
-            window.location.href = '/';
-        }
-    }
 </script>
 
 <style>
@@ -114,22 +98,6 @@
         font-size: 14px;
         color: #fff;
         text-shadow: -1px 0px black, 0px 1px black, 1px 0px black, 0px -1px black;
-    }
-
-    .auth-buttons {
-        position: absolute;
-        top: 20px;
-        right: 20px;
-    }
-
-    .auth-buttons a {
-        font-size: 14px;
-        color: #666;
-        text-decoration: underline;
-    }
-
-    .auth-buttons a:hover {
-        color: #333;
     }
 
     .search-box {
@@ -233,15 +201,6 @@
 </style>
 
 <main class="container">
-    <div class="auth-buttons">
-        {#if $isLoggedIn}
-            <a href="/mypage/verify">마이페이지</a>
-            <button on:click={handleLogOut}>로그아웃</button>
-        {:else}
-            <a href="/signin">로그인</a>
-            <a href="/signup">회원가입</a>
-        {/if}
-    </div>
     <div class="search-box" style="text-align: center">
         <input type="text" placeholder="검색할 공연 정보를 입력해주세요." bind:value={searchTerm}>
 
