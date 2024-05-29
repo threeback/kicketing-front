@@ -2,8 +2,6 @@
     import {endpoints} from "$lib/api";
     import {onMount} from "svelte";
     import {writable} from "svelte/store";
-    import {removeRefreshToken} from "$lib/stores/auth.js";
-    import { isLoggedIn, setLogout } from '$lib/stores/auth.js';
 
 
     let performances = writable([]);

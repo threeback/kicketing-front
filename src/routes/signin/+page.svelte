@@ -3,6 +3,7 @@
     import {endpoints, googleOauthApi, kakaoOauthApi, naverOauthApi} from "$lib/api";
     import {goto} from "$app/navigation";
     import {setLogin, setRefreshToken} from "$lib/stores/auth.js";
+    import {onDestroy, onMount} from "svelte";
 
     function generateUniqueState() {
         return uuidv4();
@@ -12,6 +13,21 @@
     let password = "";
     let rememberMe = false;
     let autoLogin = false;
+
+    onMount(() => {
+        const handleKeyDown = (event) => {
+            if (event.key === 'Enter') {
+                handleLogin();
+            }
+        };
+
+        document.addEventListener('keydown', handleKeyDown);
+
+        // 컴포넌트가 언마운트될 때 keydown 이벤트 리스너를 제거합니다.
+        onDestroy(() => {
+            document.removeEventListener('keydown', handleKeyDown);
+        });
+    });
 
     async function handleLogin() {
 
@@ -37,7 +53,7 @@
                 setRefreshToken(refreshToken);
                 setLogin();
             })
-            await goto("/");
+            window.location.href = "/";
         } else {
             alert("이메일 또는 비밀번호가 잘못되었습니다.");
             return;

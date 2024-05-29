@@ -5,7 +5,7 @@
     import {endpoints} from "$lib/api.js";
     import {writable} from "svelte/store";
     import {onMount} from "svelte";
-    import {refreshAccessToken} from "$lib/stores/auth.js";
+    import {handleRefreshAccessToken} from "$lib/stores/auth.js";
 
     const nameRegex = /^[가-힣]{2,20}$/;
     const passwordRegex = /^(?=.*[0-9])(?=.*[a-z])(?=.*[^a-zA-Z0-9]).{8,12}$/;
@@ -19,7 +19,7 @@
     let current_password = "";
     let new_password = "";
     let confirm_password = "";
-    let user = writable();
+
 
     onMount(async () => {
         try {
@@ -27,20 +27,17 @@
                 method: "GET",
                 credentials: 'include',
             });
+
             if (!response.ok) {
-                response.text().then(errorData => {
-                    if (errorData === "[ACCESS_TOKEN] 토큰 추출 실패") {
-                        refreshAccessToken();
-                        
-                    }
-                });
+                await handleRefreshAccessToken(response, "/mypage");
+            } else {
+                const result = await response.json();
+                name = result.name;
+                email = result.email;
+                address = result.address;
             }
-            const result = await response.json();
-            name = result.name;
-            email = result.email;
-            address = result.address;
         } catch (err) {
-            //console.log(err.message); // 에러 발생 시 에러 메시지 저장
+            console.log(err.message); // 에러 발생 시 에러 메시지 저장
         }
     });
 
