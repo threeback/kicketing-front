@@ -37,15 +37,17 @@
 <main class="event-list-container">
     {#each canceledReservationArray as canceled}
         <div class="eventlist-item">
-
+            <img src="{canceled.imageUrl}" width="16%"
+                 alt="{canceled.performanceName}"
+                 style="float: left; border-radius: 5px;"/>
             <div class="eventlist-title" style="text-align-last: center">
                 <div>{canceled.performanceName}</div>
             </div>
 
             <div class="eventlist-details" style="margin: 10px">
                 <p>{canceled.placeName + " " + canceled.hall}</p>
-                <p>{canceled.performanceDate?.slice(0, 10) || '' + " ("
-                + canceled.performanceDate?.slice(11, 16) || '' + ") " + canceled.round + "회차"}</p>
+                <p>{canceled.performanceDate.slice(0, 10) + " (" +
+                canceled.performanceDate.slice(11, 16) + ") " + canceled.round + "회차"}</p>
             </div>
 
             <div class="right">

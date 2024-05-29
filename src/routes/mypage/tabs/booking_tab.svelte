@@ -61,7 +61,7 @@
                  alt="{reservation.simplePerformanceDTO.name}"
                  style="float: left; border-radius: 5px;"/>
 
-            <div class="eventlist-title" style="text-align-last: center">
+            <div class="eventlist-title" style="text-align-last: center; padding: 10px">
                 <div>{reservation.simplePerformanceDTO.name}</div>
                 <div>{reservation.simplePerformanceDTO.genre}</div>
             </div>
