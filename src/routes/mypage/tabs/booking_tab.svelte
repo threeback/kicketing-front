@@ -54,6 +54,7 @@
     @import url('../../../../static/style/button.css');
 </style>
 
+<title>마이페이지</title>
 <main class="event-list-container">
     {#each reservationArray as reservation}
         <div class="eventlist-item">

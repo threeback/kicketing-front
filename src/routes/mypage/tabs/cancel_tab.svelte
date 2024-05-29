@@ -34,6 +34,7 @@
     }
 </style>
 
+<title>마이페이지</title>
 <main class="event-list-container">
     {#each canceledReservationArray as canceled}
         <div class="eventlist-item">
