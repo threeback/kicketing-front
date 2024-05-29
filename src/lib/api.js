@@ -2,10 +2,13 @@ export const apiEndpoint = import.meta.env.VITE_API_URL;
 export const webUrl = import.meta.env.VITE_API_WEB;
 
 export const endpoints = {
+    user: `${apiEndpoint}/user`,
     signup: `${apiEndpoint}/user/sign-up`,
     signin: `${apiEndpoint}/user/sign-in`,
+    signout: `${apiEndpoint}/user/sign-out`,
     refresh: `${apiEndpoint}/refresh`,
     oauth: `${apiEndpoint}/oauth`,
+    performances: `${apiEndpoint}/performances`
 }
 
 export const googleOauthApi = {
