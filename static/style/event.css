@@ -15,7 +15,7 @@
     overflow: hidden; /* 내용이 넘칠 경우 숨김 처리 */
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     width: 300px; /* 각 카드의 너비 */
-    height:400px;
+    height: 400px;
     flex-direction: column; /* 세로로 아이템들을 나열합니다. */
 }
 

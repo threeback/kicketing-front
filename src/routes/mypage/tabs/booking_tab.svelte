@@ -1,107 +1,50 @@
 <script>
-    // import "../../../../static/style/event.css";
-    let events = [
-        {
-            id: 1,
-            title: 'IU Concert: The Golden hour',
-            date: '2023-09-28~30',
-            location: '잠실올림픽주경기장',
-            imageURL: 'src/lib/images/main/iu_poster.jpg',
-            orderNumber: 1,
-            goto: '/signin'
-        },
-        {
-            id: 2,
-            title: 'CHANGMO: UNDERGROUND ROCKSTAR 2020',
-            date: '2020-03-04~18',
-            location: 'NORTH AMERICA',
-            imageURL: 'src/lib/images/main/changmo_poster.jpeg',
-            orderNumber: 2,
-            goto: '/signin'
-        },{
-            id: 1,
-            title: 'IU Concert: The Golden hour',
-            date: '2023-09-28~30',
-            location: '잠실올림픽주경기장',
-            imageURL: 'src/lib/images/main/iu_poster.jpg',
-            orderNumber: 3,
-            goto: '/signin'
-        },
-        {
-            id: 2,
-            title: 'CHANGMO: UNDERGROUND ROCKSTAR 2020',
-            date: '2020-03-04~18',
-            location: 'NORTH AMERICA',
-            imageURL: 'src/lib/images/main/changmo_poster.jpeg',
-            orderNumber: 4,
-            goto: '/signin'
-        },{
-            id: 1,
-            title: 'IU Concert: The Golden hour',
-            date: '2023-09-28~30',
-            location: '잠실올림픽주경기장',
-            imageURL: 'src/lib/images/main/iu_poster.jpg',
-            orderNumber: 5,
-            goto: '/signin'
-        },
-        {
-            id: 2,
-            title: 'CHANGMO: UNDERGROUND ROCKSTAR 2020',
-            date: '2020-03-04~18',
-            location: 'NORTH AMERICA',
-            imageURL: 'src/lib/images/main/changmo_poster.jpeg',
-            orderNumber: 6,
-            goto: '/signin'
-        },{
-            id: 1,
-            title: 'IU Concert: The Golden hour',
-            date: '2023-09-28~30',
-            location: '잠실올림픽주경기장',
-            imageURL: 'src/lib/images/main/iu_poster.jpg',
-            orderNumber: 7,
-            goto: '/signin'
-        },
-        {
-            id: 2,
-            title: 'CHANGMO: UNDERGROUND ROCKSTAR 2020',
-            date: '2020-03-04~18',
-            location: 'NORTH AMERICA',
-            imageURL: 'src/lib/images/main/changmo_poster.jpeg',
-            orderNumber: 8,
-            goto: '/signin'
-        },{
-            id: 1,
-            title: 'IU Concert: The Golden hour',
-            date: '2023-09-28~30',
-            location: '잠실올림픽주경기장',
-            imageURL: 'src/lib/images/main/iu_poster.jpg',
-            orderNumber: 9,
-            goto: '/signin'
-        },
-        {
-            id: 2,
-            title: 'CHANGMO: UNDERGROUND ROCKSTAR 2020',
-            date: '2020-03-04~18',
-            location: 'NORTH AMERICA',
-            imageURL: 'src/lib/images/main/changmo_poster.jpeg',
-            orderNumber: 10,
-            goto: '/signin'
-        }
-    ];
+    import {onMount} from "svelte";
+    import {endpoints} from "$lib/api.js";
+    import {handleRefreshAccessToken} from "$lib/stores/auth.js";
 
-    function scrollRight() {
-        const container = document.querySelector('.event-container');
-        if (container) {
-            container.scrollLeft += 300; // Adjust this value based on the card width
-            container.style.transition = 'all ease 2s 0s';
-        }
-    }
+    let reservationArray = [];
 
-    function scrollLeft() {
-        const container = document.querySelector('.event-container');
-        if (container) {
-            container.scrollLeft -= 300; // Adjust this value based on the card width
-            container.style.transition = 'all ease 2s 0s';
+    onMount(async () => {
+        try {
+            const response = await fetch(endpoints.user + "/my-reservation", {
+                method: "GET",
+                credentials: 'include',
+            });
+
+            if (!response.ok) {
+                await handleRefreshAccessToken(response, "/mypage");
+            } else {
+                const result = await response.json();
+                reservationArray = Object.entries(result.reservations)
+                    .map(([orderNumber, data]) => ({orderNumber, ...data}));
+            }
+        } catch (err) {
+            console.log(err.message); // 에러 발생 시 에러 메시지 저장
+        }
+    });
+
+    async function cancelReservation(orderNumber) {
+        if (confirm("정말 예약을 취소하시겠습니까? 한 번 예약을 취소하면 되돌릴 수 없습니다.")) {
+            const response = await fetch(endpoints.user + "/my-reservation/" + orderNumber, {
+                method: "DELETE",
+                credentials: 'include',
+                headers: {
+                    "Content-Type": "application/json",
+                },
+            });
+
+            if (!response.ok) {
+                response.text().then(errorMessage => {
+                    alert(errorMessage); // 오류 메시지를 alert 창에 표시
+                });
+                await handleRefreshAccessToken(response, "/mypage");
+            } else {
+                alert("예매 취소가 완료되었습니다.");
+                window.location.href = "/mypage";
+            }
+        } else {
+            return;
         }
     }
 </script>
@@ -112,27 +55,50 @@
 </style>
 
 <main class="event-list-container">
-        {#each events as event, index (event)}
-            <div class="eventlist-item">
-                <a href={event.goto}>
-                    <img src="{event.imageURL}" width="80px" alt="{event.title}" style="float: left; border-radius: 5px"/>
-                </a>
+    {#each reservationArray as reservation}
+        <div class="eventlist-item">
+            <img src="{reservation.simplePerformanceDTO.imageUrl}" width="16%"
+                 alt="{reservation.simplePerformanceDTO.name}"
+                 style="float: left; border-radius: 5px;"/>
 
-                <a href={event.goto}>
-                    <div class="eventlist-title">{event.title}</div>
-                    <div class="eventlist-details">
-                        <p>{event.location}</p>
-                        <p>{event.date}</p>
-                    </div>
-                </a>
-                <div class="right">
-                    <div style="text-align: center;">
-                        <div class="eventlist-title">예매 번호</div>
-                        <div class="eventlist-details">{event.orderNumber}</div>
-                    </div>
-                    <button class="red-button">예매 취소</button>
-                </div>
+            <div class="eventlist-title" style="text-align-last: center">
+                <div>{reservation.simplePerformanceDTO.name}</div>
+                <div>{reservation.simplePerformanceDTO.genre}</div>
             </div>
 
-        {/each}
+            <div class="eventlist-details">
+                <p>{reservation.placeDTO.name + " " + reservation.placeDTO.hall}</p>
+                <p>{reservation.onStageDTO.dateTime.slice(0, 10) + " ("
+                + reservation.onStageDTO.dateTime.slice(11, 16) + ") " + reservation.onStageDTO.round + "회차"}</p>
+            </div>
+
+            <div class="right">
+                <div style="text-align: center;">
+                    <div class="eventlist-title">예매 번호</div>
+                    <div class="eventlist-details">{reservation.orderNumber}</div>
+                    <br>
+                    <div class="eventlist-orderedAt">예매 일자</div>
+                    <div class="eventlist-details">{reservation.simpleReservationDTO.orderedAt?.slice(0, 10) || ''
+                    + " " + reservation.simpleReservationDTO.orderedAt?.slice(11, 16) || ''}</div>
+                </div>
+
+            </div>
+            <div class="eventlist-item" style="display: block; width: 16%">
+                <div class="eventlist-details" style="font-size: 20px">
+                    좌석 정보 {reservation.seatDTOS.length}개
+                </div>
+                <br>
+                {#each reservation.seatDTOS as seat}
+                    <li style="padding: 4px; margin-left: 20px ">
+                        {seat.seatRow + "열 " + seat.seatCol + "석 (" + seat.grade + ")"}
+                    </li>
+                {/each}
+            </div>
+            <div>
+                <button class="red-button" on:click={()=> cancelReservation(reservation.orderNumber)}>예매 취소</button>
+            </div>
+        </div>
+    {/each}
+
+
 </main>
