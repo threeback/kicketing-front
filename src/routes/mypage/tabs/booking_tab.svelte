@@ -18,6 +18,10 @@
                 const result = await response.json();
                 reservationArray = Object.entries(result.reservations)
                     .map(([orderNumber, data]) => ({orderNumber, ...data}));
+
+                reservationArray.sort((a, b) => {
+                    return new Date(b.onStageDTO.dateTime) - new Date(a.onStageDTO.dateTime);
+                });
             }
         } catch (err) {
             console.log(err.message); // 에러 발생 시 에러 메시지 저장
@@ -56,6 +60,9 @@
 
 <title>마이페이지</title>
 <main class="event-list-container">
+    {#if reservationArray.length < 1}
+        <h1 style="text-align: center;">예매 내역이 없습니다.</h1>
+    {/if}
     {#each reservationArray as reservation}
         <div class="eventlist-item">
             <img src="{reservation.simplePerformanceDTO.imageUrl}" width="16%"
