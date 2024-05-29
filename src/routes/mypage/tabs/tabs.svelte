@@ -1,80 +1,61 @@
-<!-- Tabs.svelte -->
 <script>
-    import {onDestroy, onMount} from 'svelte';
-    import {writable} from 'svelte/store';
-
     export let items = [];
+    export let activeTabValue = 1;
 
-    let activeTab = writable(1);
-
-    function setActiveTab(value) {
-        activeTab.set(value);
-    }
-
-    $: $activeTab = $activeTab;
-
-    function handleTabChange(tabValue) {
-        setActiveTab(tabValue);
-    }
-
-    let unsubscribeActiveTab;
-
-    onMount(() => {
-        unsubscribeActiveTab = activeTab.subscribe(value => {
-            handleTabChange(value);
-        });
-
-        return () => {
-            unsubscribeActiveTab();
-        };
-    });
-
-    onDestroy(() => {
-        unsubscribeActiveTab();
-    });
+    const handleClick = tabValue => () => (activeTabValue = tabValue);
 </script>
 
-<div class="tabs">
-    {#each items as item (item.value)}
-        <button
-                class="{item.value === $activeTab ? 'active' : ''}"
-                on:click={() => setActiveTab(item.value)}>
-            {item.label}
-        </button>
+<ul>
+    {#each items as item}
+        <li class={activeTabValue === item.value ? 'active' : ''}>
+            <span on:click={handleClick(item.value)}>{item.label}</span>
+        </li>
     {/each}
-</div>
-
-<div class="tab-content">
-    {#each items as item (item.value)}
-        {#if item.value === $activeTab}
+</ul>
+{#each items as item}
+    {#if activeTabValue === item.value}
+        <div class="tab-box">
             <svelte:component this={item.component}/>
-        {/if}
-    {/each}
-</div>
-
+        </div>
+    {/if}
+{/each}
 <style>
-    .tabs {
+    .tab-box {
+        margin-bottom: 10px;
+        padding: 40px;
+        border-radius: 0 0 .5rem .5rem;
+        border-top: 0;
+    }
+
+    ul {
         display: flex;
-        justify-content: space-around;
-        margin-bottom: 20px;
+        flex-wrap: wrap;
+        padding-left: 0;
+        margin-bottom: 0;
+        list-style: none;
+        border-bottom: 1px solid #dee2e6;
     }
 
-    .tabs button {
-        background-color: transparent;
-        border: none;
-        cursor: pointer;
-        padding: 10px;
+    li {
+        margin-bottom: -1px;
     }
 
-    .tabs button.active {
-        border-bottom: 2px solid #007bff;
-    }
-
-    .tab-content > div {
-        display: none;
-    }
-
-    .tab-content > div:first-child {
+    span {
+        border: 1px solid transparent;
+        border-top-left-radius: 0.25rem;
+        border-top-right-radius: 0.25rem;
         display: block;
+        padding: 0.5rem 1rem;
+        cursor: pointer;
+    }
+
+    span:hover {
+        border-color: #e9ecef #e9ecef #dee2e6;
+    }
+
+    li.active > span {
+        color: #495057;
+        background-color: #fff;
+        border-color: #dee2e6 #dee2e6 #fff;
     }
 </style>

@@ -1,92 +1,28 @@
 <script>
-    let events = [
-        {
-            id: 1,
-            title: 'IU Concert: The Golden hour',
-            date: '2023-09-28~30',
-            location: '잠실올림픽주경기장',
-            imageURL: 'src/lib/images/main/iu_poster.jpg',
-            orderNumber: 1,
-            goto: '/signin'
-        },
-        {
-            id: 2,
-            title: 'CHANGMO: UNDERGROUND ROCKSTAR 2020',
-            date: '2020-03-04~18',
-            location: 'NORTH AMERICA',
-            imageURL: 'src/lib/images/main/changmo_poster.jpeg',
-            orderNumber: 2,
-            goto: '/signin'
-        },{
-            id: 1,
-            title: 'IU Concert: The Golden hour',
-            date: '2023-09-28~30',
-            location: '잠실올림픽주경기장',
-            imageURL: 'src/lib/images/main/iu_poster.jpg',
-            orderNumber: 3,
-            goto: '/signin'
-        },
-        {
-            id: 2,
-            title: 'CHANGMO: UNDERGROUND ROCKSTAR 2020',
-            date: '2020-03-04~18',
-            location: 'NORTH AMERICA',
-            imageURL: 'src/lib/images/main/changmo_poster.jpeg',
-            orderNumber: 4,
-            goto: '/signin'
-        },{
-            id: 1,
-            title: 'IU Concert: The Golden hour',
-            date: '2023-09-28~30',
-            location: '잠실올림픽주경기장',
-            imageURL: 'src/lib/images/main/iu_poster.jpg',
-            orderNumber: 5,
-            goto: '/signin'
-        },
-        {
-            id: 2,
-            title: 'CHANGMO: UNDERGROUND ROCKSTAR 2020',
-            date: '2020-03-04~18',
-            location: 'NORTH AMERICA',
-            imageURL: 'src/lib/images/main/changmo_poster.jpeg',
-            orderNumber: 6,
-            goto: '/signin'
-        },{
-            id: 1,
-            title: 'IU Concert: The Golden hour',
-            date: '2023-09-28~30',
-            location: '잠실올림픽주경기장',
-            imageURL: 'src/lib/images/main/iu_poster.jpg',
-            orderNumber: 7,
-            goto: '/signin'
-        },
-        {
-            id: 2,
-            title: 'CHANGMO: UNDERGROUND ROCKSTAR 2020',
-            date: '2020-03-04~18',
-            location: 'NORTH AMERICA',
-            imageURL: 'src/lib/images/main/changmo_poster.jpeg',
-            orderNumber: 8,
-            goto: '/signin'
-        },{
-            id: 1,
-            title: 'IU Concert: The Golden hour',
-            date: '2023-09-28~30',
-            location: '잠실올림픽주경기장',
-            imageURL: 'src/lib/images/main/iu_poster.jpg',
-            orderNumber: 9,
-            goto: '/signin'
-        },
-        {
-            id: 2,
-            title: 'CHANGMO: UNDERGROUND ROCKSTAR 2020',
-            date: '2020-03-04~18',
-            location: 'NORTH AMERICA',
-            imageURL: 'src/lib/images/main/changmo_poster.jpeg',
-            orderNumber: 10,
-            goto: '/signin'
+    import {onMount} from "svelte";
+    import {endpoints} from "$lib/api.js";
+    import {handleRefreshAccessToken} from "$lib/stores/auth.js";
+
+    let canceledReservationArray = [];
+
+    onMount(async () => {
+        try {
+            const response = await fetch(endpoints.user + "/my-reservation/canceled", {
+                method: "GET",
+                credentials: 'include',
+            });
+
+            if (!response.ok) {
+                await handleRefreshAccessToken(response, "/mypage");
+            } else {
+                const result = await response.json();
+                canceledReservationArray = Object.entries(result.canceledReservationDTOMap)
+                    .map(([orderNumber, data]) => ({orderNumber, ...data}));
+            }
+        } catch (err) {
+            console.log(err.message);
         }
-    ];
+    });
 </script>
 
 <style>
@@ -99,28 +35,47 @@
 </style>
 
 <main class="event-list-container">
-    {#each events as event, index (event)}
+    {#each canceledReservationArray as canceled}
         <div class="eventlist-item">
-            <a href={event.goto}>
-                <img src="{event.imageURL}" width="80px" alt="{event.title}" style="float: left; border-radius: 5px"/>
-            </a>
 
-            <a href={event.goto}>
-                <div class="eventlist-title">{event.title}</div>
-                <div class="eventlist-details">
-                    <p>{event.location}</p>
-                    <p>{event.date}</p>
-                </div>
-            </a>
+            <div class="eventlist-title" style="text-align-last: center">
+                <div>{canceled.performanceName}</div>
+            </div>
+
+            <div class="eventlist-details" style="margin: 10px">
+                <p>{canceled.placeName + " " + canceled.hall}</p>
+                <p>{canceled.performanceDate?.slice(0, 10) || '' + " ("
+                + canceled.performanceDate?.slice(11, 16) || '' + ") " + canceled.round + "회차"}</p>
+            </div>
+
             <div class="right">
                 <div style="text-align: center;">
                     <div class="eventlist-title">예매 번호</div>
-                    <div class="eventlist-details">{event.orderNumber}</div>
-                    <p>예매가 정상적으로 <br> 취소되었습니다.</p>
+                    <div class="eventlist-details">{canceled.orderNumber}</div>
                 </div>
-                <button class="blue-button">다시 예매하러 가기</button>
+            </div>
+            <div style="text-align: center;">
+                <div class="eventlist-orderedAt">예매 일자</div>
+                <div class="eventlist-details">{canceled.orderedAt?.slice(0, 10) || ''
+                + " " }</div>
+                <div>{canceled.orderedAt?.slice(11, 16) || ''}</div>
+                <br>
+                <div class="eventlist-orderedAt">취소 일자</div>
+                <div class="eventlist-details">{canceled.canceledAt?.slice(0, 10) || ''
+                + " "}</div>
+                <div>{canceled.canceledAt?.slice(11, 16) || ''}</div>
+            </div>
+            <div class="eventlist-item" style="display: block; width: 16%">
+                <div class="eventlist-details" style="font-size: 20px">
+                    좌석 정보 {canceled.seatDTOS.length}개
+                </div>
+                <br>
+                {#each canceled.seatDTOS as seat}
+                    <li style="padding: 4px; margin-left: 20px ">
+                        {seat.seatRow + "열 " + seat.seatCol + "석 (" + seat.grade + ")"}
+                    </li>
+                {/each}
             </div>
         </div>
-
     {/each}
 </main>

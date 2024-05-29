@@ -72,14 +72,17 @@
                 + reservation.onStageDTO.dateTime.slice(11, 16) + ") " + reservation.onStageDTO.round + "회차"}</p>
             </div>
 
-            <div class="right">
+            <div>
                 <div style="text-align: center;">
                     <div class="eventlist-title">예매 번호</div>
                     <div class="eventlist-details">{reservation.orderNumber}</div>
                     <br>
                     <div class="eventlist-orderedAt">예매 일자</div>
                     <div class="eventlist-details">{reservation.simpleReservationDTO.orderedAt?.slice(0, 10) || ''
-                    + " " + reservation.simpleReservationDTO.orderedAt?.slice(11, 16) || ''}</div>
+                    + " "}</div>
+                    <div>
+                        {reservation.simpleReservationDTO.orderedAt?.slice(11, 16) || ''}
+                    </div>
                 </div>
 
             </div>
