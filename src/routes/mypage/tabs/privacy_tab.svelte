@@ -7,12 +7,10 @@
     import {onMount} from "svelte";
     import {handleRefreshAccessToken} from "$lib/stores/auth.js";
 
-    const nameRegex = /^[가-힣]{2,20}$/;
     const passwordRegex = /^(?=.*[0-9])(?=.*[a-z])(?=.*[^a-zA-Z0-9]).{8,12}$/;
 
     let name = "경성이";
     let email = "test@test.com";
-    let user_state = 1;
     let address = "경성대";
     let address_kakao = writable('새로운 주소지를 검색하세요.');
     let address_detailed = writable('');
@@ -29,6 +27,9 @@
             });
 
             if (!response.ok) {
+                response.text().then(errorMessage => {
+                    alert(errorMessage); // 오류 메시지를 alert 창에 표시
+                });
                 await handleRefreshAccessToken(response, "/mypage");
             } else {
                 const result = await response.json();
@@ -37,16 +38,12 @@
                 address = result.address;
             }
         } catch (err) {
-            console.log(err.message); // 에러 발생 시 에러 메시지 저장
+            console.log(err.message);
         }
     });
 
     async function handleChangeName() {
-        if (user_state === 1) {
-            window.open('/mypage/changeName')
-        } else {
-            alert('이름 변경이 불가합니다.');
-        }
+        window.open('/mypage/changeName')
     }
 
     async function handleSearchAddress() {
