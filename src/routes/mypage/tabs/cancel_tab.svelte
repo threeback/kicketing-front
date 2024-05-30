@@ -18,6 +18,10 @@
                 const result = await response.json();
                 canceledReservationArray = Object.entries(result.canceledReservationDTOMap)
                     .map(([orderNumber, data]) => ({orderNumber, ...data}));
+
+                canceledReservationArray.sort((a, b) => {
+                    return new Date(b.canceledAt) - new Date(a.canceledAt);
+                });
             }
         } catch (err) {
             console.log(err.message);
@@ -36,6 +40,9 @@
 
 <title>마이페이지</title>
 <main class="event-list-container">
+    {#if canceledReservationArray.length < 1}
+        <h1 style="text-align: center;">취소 내역이 없습니다.</h1>
+    {/if}
     {#each canceledReservationArray as canceled}
         <div class="eventlist-item">
             <img src="{canceled.imageUrl}" width="16%"

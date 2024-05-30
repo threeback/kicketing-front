@@ -14,19 +14,18 @@
     let rememberMe = false;
     let autoLogin = false;
 
+    function handleKeyDown(event) {
+        if (event.key === 'Enter') {
+            handleLogin();
+        }
+    }
+
     onMount(() => {
-        const handleKeyDown = (event) => {
-            if (event.key === 'Enter') {
-                handleLogin();
-            }
-        };
-
         document.addEventListener('keydown', handleKeyDown);
+    });
 
-        // 컴포넌트가 언마운트될 때 keydown 이벤트 리스너를 제거합니다.
-        onDestroy(() => {
-            document.removeEventListener('keydown', handleKeyDown);
-        });
+    onDestroy(() => {
+        document.removeEventListener('keydown', handleKeyDown);
     });
 
     async function handleLogin() {

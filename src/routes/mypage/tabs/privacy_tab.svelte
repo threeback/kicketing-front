@@ -27,10 +27,10 @@
             });
 
             if (!response.ok) {
+                await handleRefreshAccessToken(response, "/mypage");
                 response.text().then(errorMessage => {
                     alert(errorMessage); // 오류 메시지를 alert 창에 표시
                 });
-                await handleRefreshAccessToken(response, "/mypage");
             } else {
                 const result = await response.json();
                 name = result.name;
