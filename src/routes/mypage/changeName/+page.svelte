@@ -58,7 +58,6 @@
             }
         }
     }
-
 </script>
 
 <title>이름 변경하기</title>
@@ -75,15 +74,13 @@
 </main>
 
 <style>
-    @import url('../../../../static/style/changeName.css');
-    @import url('../../../../static/style/button.css');
 
-    h2 {
-        font-size: 30px;
-        margin-bottom: 30px;
-        font-weight: bold;
-        color: #000;
-        text-align: center;
+    .container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 60vh;
     }
 
     input,
@@ -96,8 +93,13 @@
         border-radius: 11px;
     }
 
-    button {
-        cursor: pointer;
-        position: relative;
+    .box {
+        width: fit-content;
+        padding: 10px 20px;
+    }
+
+    .p-label {
+        font-size: 19px;
+        color: #000;
     }
 </style>

@@ -54,8 +54,9 @@
 </script>
 
 <style>
-    @import url('../../../../static/style/event.css');
-    @import url('../../../../static/style/button.css');
+    button {
+        width: 66%;
+    }
 </style>
 
 <title>마이페이지</title>

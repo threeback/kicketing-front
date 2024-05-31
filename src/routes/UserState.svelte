@@ -33,12 +33,22 @@
     .auth-buttons a:hover {
         color: #333;
     }
+
+    .signout-button {
+        background: none;
+        font-size: 14px;
+        color: #666;
+        border: none;
+        padding: 0;
+        text-decoration: underline;
+        /*margin-left: 6px;*/
+    }
 </style>
 
 <div class="auth-buttons">
     {#if $isLoggedIn}
         <a href="/mypage">마이페이지</a>
-        <button style="margin-left: 6px; width : 80px" on:click={handleLogOut}>로그아웃</button>
+        <button class="signout-button" on:click={handleLogOut}>로그아웃</button>
     {:else}
         <a href="/signin">로그인</a>
         <a href="/signup">회원가입</a>
