@@ -1,44 +1,62 @@
 <script>
-    import { v4 as uuidv4 } from "uuid";
-    import { googleOauthApi } from "$lib/api";
-    import { kakaoOauthApi } from "$lib/api";
-    import { naverOauthApi } from "$lib/api";
-    import { endpoints } from "$lib/api";
-    import { goto } from "$app/navigation";
+    import {v4 as uuidv4} from "uuid";
+    import {endpoints, googleOauthApi, kakaoOauthApi, naverOauthApi} from "$lib/api";
+    import {goto} from "$app/navigation";
+    import {setLogin, setRefreshToken} from "$lib/stores/auth.js";
+    import {onDestroy, onMount} from "svelte";
 
     function generateUniqueState() {
         return uuidv4();
     }
 
-    let email= "";
+    let email = "";
     let password = "";
     let rememberMe = false;
     let autoLogin = false;
 
+    function handleKeyDown(event) {
+        if (event.key === 'Enter') {
+            handleLogin();
+        }
+    }
+
+    onMount(() => {
+        document.addEventListener('keydown', handleKeyDown);
+    });
+
+    onDestroy(() => {
+        document.removeEventListener('keydown', handleKeyDown);
+    });
+
     async function handleLogin() {
 
-        if(email.trim() == "" || password.trim() == ""){
+        if (email.trim() == "" || password.trim() == "") {
             alert("로그인 정보를 정확히 입력하세요.");
             return;
         }
 
         const response = await fetch(endpoints.signin, {
-			method: "POST",
-			headers: {
-				"Content-Type": "application/json",
-			},
-			body: JSON.stringify({
-				email,
-				password,
-			}),
-		});
+            method: "POST",
+            credentials: 'include',
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                email,
+                password,
+            }),
+        });
 
         if (response.ok) {
-			goto("/");
-		} else {
-			alert("이메일 또는 비밀번호가 잘못되었습니다.");
+            response.text().then((refreshToken) => {
+                setRefreshToken(refreshToken);
+                setLogin();
+            })
+            window.location.href = "/";
+        } else {
+            alert("이메일 또는 비밀번호가 잘못되었습니다.");
             return;
-		}
+        }
 
     }
 
@@ -77,8 +95,8 @@
 <title>로그인</title>
 <div class="container">
     <h2>로그인</h2>
-    <input type="text" placeholder="아이디" bind:value={email} />
-    <input type="password" placeholder="비밀번호" bind:value={password} />
+    <input type="text" placeholder="아이디" bind:value={email}/>
+    <input type="password" placeholder="비밀번호" bind:value={password}/>
 
     <div class="auth-buttons">
         <span>아직 키켓팅의 회원이 아니라면?</span>
@@ -89,15 +107,15 @@
 
     <div class="oauth-container">
         <button class="oauth-button" on:click={handleNaverLogin}>
-            <img src="src/lib/images/naverlogin.png" alt="네이버 로그인" />
+            <img src="src/lib/images/naverlogin.png" alt="네이버 로그인"/>
         </button>
 
         <button class="oauth-button" on:click={handleKakaoLogin}>
-            <img src="src/lib/images/kakaologin.png" alt="카카오 로그인" />
+            <img src="src/lib/images/kakaologin.png" alt="카카오 로그인"/>
         </button>
 
         <button class="oauth-button" on:click={handleGoogleLogin}>
-            <img src="src/lib/images/googlelogin.png" alt="구글 로그인" />
+            <img src="src/lib/images/googlelogin.png" alt="구글 로그인"/>
         </button>
     </div>
 </div>
@@ -155,20 +173,5 @@
     .oauth-button img {
         width: 140px; /* 이미지의 너비를 100px로 설정 */
         height: 35px; /* 이미지의 높이를 자동으로 조정하여 비율 유지 */
-    }
-
-    .auth-buttons {
-        padding: 5px;
-        font-size: 14px;
-    }
-
-    .auth-buttons a {
-        font-size: 14px;
-        color: #666;
-        text-decoration: underline;
-    }
-
-    .auth-buttons a:hover {
-        color: #333;
     }
 </style>

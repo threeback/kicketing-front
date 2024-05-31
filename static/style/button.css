@@ -7,17 +7,3 @@
     background-color: #fe4848;
     color: #fff;
 }
-
-button {
-    margin-bottom: 10px;
-    padding: 8px;
-    width: 40%;
-    box-sizing: border-box;
-    border: 1px solid #ccc; /* 테두리 색상 변경 */
-    border-radius: 11px;
-}
-
-button {
-    cursor: pointer;
-    position: relative;
-}
