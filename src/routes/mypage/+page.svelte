@@ -24,12 +24,11 @@
 </script>
 <style>
     .container {
-        font-family: "GmarketSansMedium", sans-serif;
-        margin-left: -100px;
-        margin-right: -100px;
+        margin-left: 100px;
+        margin-right: 100px;
     }
-
 </style>
+
 <main class="container">
     <h1 style="font-weight: bold; color: #000">마이페이지</h1>
     <Tabs {items}/>

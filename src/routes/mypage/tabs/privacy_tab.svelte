@@ -139,15 +139,24 @@
 </script>
 
 <style>
-    @import url('../../../../static/style/privacy_tab.css');
-    @import url('../../../../static/style/button.css');
+    .container {
+        margin: 2rem auto;
+        padding: 2rem;
+    }
 
-    h2 {
-        font-size: 30px;
-        margin-bottom: 30px;
-        font-weight: bold;
+    .p-label {
+        font-size: 19px;
         color: #000;
+    }
+
+    .container-box {
+        margin-bottom: 10px;
+        padding: 8px;
         text-align: center;
+        box-sizing: border-box;
+        border: 1px solid #ccc; /* 테두리 색상 변경 */
+        font_color: black;
+        border-radius: 11px;
     }
 
     input,
@@ -160,9 +169,8 @@
         border-radius: 11px;
     }
 
-    button {
-        cursor: pointer;
-        position: relative;
+    .box {
+        width: 40%;
     }
 </style>
 
@@ -172,14 +180,14 @@
     <div style="width: 100%">
         <div class="container-box">
             <h2>이메일</h2>
-            <div class="box" style="width: 50%">
+            <div class="box">
                 <p>{email}</p>
             </div>
         </div>
         <div class="container-box">
             <h2>이름</h2>
             <p style="color: gray; margin-top: -20px">*구글, 카카오 회원가입 유저 한정 1회에 한해 변경 가능합니다.</p>
-            <div class="box" style="width: 120px">
+            <div class="box" style="width: 120px; padding">
                 <p>{name}</p>
             </div>
             <button class="blue-button" on:click={handleChangeName} style="width: 120px">변경하러 가기</button>

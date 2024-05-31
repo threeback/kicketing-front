@@ -30,9 +30,6 @@
 </script>
 
 <style>
-    @import url('../../../../static/style/event.css');
-    @import url('../../../../static/style/button.css');
-
     .right {
         width: 25%;
     }
