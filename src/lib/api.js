@@ -9,10 +9,10 @@ export const endpoints = {
     refresh: `${apiEndpoint}/refresh`,
     oauth: `${apiEndpoint}/oauth`,
     performances: `${apiEndpoint}/performances`,
+    reservation: `${apiEndpoint}/reservation`,
     performance: `${apiEndpoint}/performance`,
     searchPerformance: `${apiEndpoint}/search/performances`,
     getAutoComplete: `${apiEndpoint}/search/performances/autocomplete`
-
 }
 
 export const googleOauthApi = {
