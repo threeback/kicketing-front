@@ -1,6 +1,7 @@
 <script>
-    import {isLoggedIn, removeRefreshToken, setLogout} from "$lib/stores/auth.js";
+    import {getUser, isLoggedIn, removeRefreshToken, setLogout, user} from "$lib/stores/auth.js";
     import {endpoints} from "$lib/api.js";
+    import {onDestroy} from "svelte";
 
     async function handleLogOut() {
         const response = await fetch(endpoints.signout, {
@@ -13,8 +14,10 @@
         
         removeRefreshToken();
         setLogout();
+        user.set(null);
         window.location.href = '/';
     }
+
 </script>
 
 <style>
@@ -47,6 +50,10 @@
 
 <div class="auth-buttons">
     {#if $isLoggedIn}
+        {#if $user}
+            {$user.name}님
+        {:else}
+        {/if}
         <a href="/mypage">마이페이지</a>
         <button class="signout-button" on:click={handleLogOut}>로그아웃</button>
     {:else}

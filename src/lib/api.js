@@ -8,7 +8,8 @@ export const endpoints = {
     signout: `${apiEndpoint}/user/sign-out`,
     refresh: `${apiEndpoint}/refresh`,
     oauth: `${apiEndpoint}/oauth`,
-    performances: `${apiEndpoint}/performances`
+    performances: `${apiEndpoint}/performances`,
+    reservation: `${apiEndpoint}/reservation`
 }
 
 export const googleOauthApi = {
