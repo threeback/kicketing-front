@@ -7,6 +7,7 @@
 
 
     let performances = writable([]);
+    const performanceDetailUrl = "/goods?performance=";
 
     onMount(async () => {
         try {
@@ -35,6 +36,7 @@
         margin: 5px;
         box-shadow: 0 0 3px #333;
     }
+
     .performance-poster {
         width: 100%;
         height: 55%;
@@ -111,13 +113,13 @@
         {#each $performances as performance}
             <div class="performance-card">
                 <div class="performance-poster">
-                    <a href={performance.goto}>
+                    <a href={performanceDetailUrl+performance.simplePerformanceDTO.id}>
                         <img src="{performance.simplePerformanceDTO.imageUrl}" width="300px"
                              alt="{performance.simplePerformanceDTO.name}"/>
                     </a>
                 </div>
                 <div class="performance-info">
-                    <a href={performance.goto}>
+                    <a href={performanceDetailUrl+performance.simplePerformanceDTO.id}>
                         <div class="performance-title">{performance.simplePerformanceDTO.name}</div>
                         <div class="performance-details">
                             <p>{performance.placeDTO.name + " " + performance.placeDTO.hall}</p>
