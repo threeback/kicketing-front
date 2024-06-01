@@ -2,7 +2,7 @@
     import {v4 as uuidv4} from "uuid";
     import {endpoints, googleOauthApi, kakaoOauthApi, naverOauthApi} from "$lib/api";
     import {goto} from "$app/navigation";
-    import {setLogin, setRefreshToken} from "$lib/stores/auth.js";
+    import {getUser, handleRefreshAccessToken, setLogin, setRefreshToken, user} from "$lib/stores/auth.js";
     import {onDestroy, onMount} from "svelte";
 
     function generateUniqueState() {
@@ -52,6 +52,9 @@
                 setRefreshToken(refreshToken);
                 setLogin();
             })
+
+            await getUser();
+
             window.location.href = "/";
         } else {
             alert("이메일 또는 비밀번호가 잘못되었습니다.");

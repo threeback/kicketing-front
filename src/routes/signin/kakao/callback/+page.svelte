@@ -2,7 +2,7 @@
     import { endpoints } from "$lib/api";
     import {onMount} from "svelte";
     import { goto } from "$app/navigation";
-    import { setRefreshToken, setLogin } from "$lib/stores/auth.js";
+    import {setRefreshToken, setLogin, user, getUser} from "$lib/stores/auth.js";
 
 
     let code, state;
@@ -32,6 +32,8 @@
                     body: JSON.stringify(data),
                 },
             );
+
+            await getUser();
 
             if (!response.ok) {
                 throw new Error("Network response was not ok" + response.error);
