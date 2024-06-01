@@ -1,10 +1,11 @@
 <script>
-    import { onMount } from "svelte";
-    import { page } from "$app/stores";
+    import {onMount} from "svelte";
+    import {page} from "$app/stores";
     import Performance_box from './box/performance_box.svelte';
-    import { name, performances, genres, activeGenres, genreMap, fetchPerformances } from '$lib/stores/performance';
+    import {name, performances, genres, activeGenres, genreMap, fetchPerformances} from '$lib/stores/performance';
+    import Search_box from "./box/search_box.svelte";
 
-    $: (function() {
+    $: (function () {
         const genreParams = $page.url.searchParams.get('genres');
         if (genreParams) {
             const genreSet = new Set(genreParams.split(','));
@@ -36,7 +37,7 @@
     });
 
     const MoveToTop = () => {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
+        window.scrollTo({top: 0, behavior: 'smooth'});
     };
 
     function toggleGenre(selectedGenre) {
@@ -61,10 +62,15 @@
         fetchPerformances();
     }
 
+    function handleSearch(event) {
+        name.set(event.detail.searchTerm);
+        fetchPerformances();
+    }
 
 </script>
 
 <title>검색</title>
+<Search_box on:search={handleSearch}/>
 <div class="container">
     <div class="filter">
         <div class="filter-section">
@@ -82,7 +88,7 @@
         {#if $performances.length > 0}
             <div class="performance-container">
                 {#each $performances as performance}
-                    <Performance_box {performance} />
+                    <Performance_box {performance}/>
                 {/each}
             </div>
         {:else}

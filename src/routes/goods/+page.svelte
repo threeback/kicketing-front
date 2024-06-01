@@ -162,6 +162,8 @@
     import {DatePicker} from "@svelte-plugins/datepicker";
     import {format} from 'date-fns';
     import {goto} from "$app/navigation";
+    import Search_box from "../search/box/search_box.svelte";
+    import {fetchPerformances, name} from "$lib/stores/performance.js";
 
     dayjs.locale('ko');
 
@@ -303,8 +305,15 @@
             console.log(err.message);
         }
     }
-</script>
 
+    function handleSearch(event) {
+        name.set(event.detail.searchTerm);
+        fetchPerformances();
+    }
+</script>
+<div style="align-self: center">
+    <Search_box on:search={handleSearch}/>
+</div>
 <title>{performanceDTO.name}</title>
 <main class="container" style="align-self: center;">
     <div>
