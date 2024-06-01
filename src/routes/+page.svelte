@@ -2,9 +2,8 @@
     import {endpoints} from "$lib/api";
     import {onMount} from "svelte";
     import {writable} from "svelte/store";
-    import SearchBox from "./search/box/search_box.svelte";
+    import Search_box from "./search/box/search_box.svelte";
     import {fetchPerformances, name} from "$lib/stores/performance.js";
-
 
     let performances = writable([]);
     const performanceDetailUrl = "/goods?performance=";
@@ -24,6 +23,10 @@
         }
     });
 
+    function handleSearch(event) {
+        name.set(event.detail.searchTerm);
+        fetchPerformances();
+    }
 </script>
 
 <style>
@@ -84,6 +87,7 @@
 </style>
 
 <main class="container">
+    <Search_box on:search={handleSearch}/>
     <div class="additional-icon">
         <a href="/signin">
             <button class="event-info-button">콘서트</button>
