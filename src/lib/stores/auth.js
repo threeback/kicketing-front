@@ -5,6 +5,55 @@ import {goto} from "$app/navigation";
 export const refreshToken = writable(null);
 export const isLoggedIn = writable(false);
 
+const createUserStore = () => {
+    let initialUser = null;
+
+    if (typeof window !== 'undefined') {
+        const storedUser = localStorage.getItem('user');
+        initialUser = storedUser ? JSON.parse(storedUser) : null;
+    }
+
+    const { subscribe, set, update } = writable(initialUser);
+
+    return {
+        subscribe,
+        set: (value) => {
+            if (typeof window !== 'undefined') {
+                if (value) {
+                    localStorage.setItem('user', JSON.stringify(value));
+                } else {
+                    localStorage.removeItem('user');
+                }
+            }
+            set(value);
+        },
+        update
+    };
+};
+
+export const user = createUserStore();
+
+export async function getUser() {
+    try {
+        const response = await fetch(endpoints.user, {
+            method: 'GET',
+            credentials: 'include',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+
+        if (!response.ok) {
+            throw new Error('Failed to get user data');
+        }
+
+        const data = await response.json();
+        user.set(data);
+    } catch (error) {
+        console.error('Failed to get user data:', error);
+    }
+}
+
 if (typeof window !== 'undefined') {
     const storedValue = localStorage.getItem('isLoggedIn');
     if (storedValue !== null) {
@@ -62,8 +111,8 @@ export async function refreshAccessToken() {
         if (!response.ok) {
             removeRefreshToken();
             setLogout();
-            window.location.href = "/signin";
             alert("로그인 세션이 만료되었습니다. 다시 로그인 해주세요.")
+            window.location.href = "/";
         } else {
             setLogin();
         }
@@ -83,7 +132,6 @@ export async function handleRefreshAccessToken(response, redirectUrl) {
             window.location.href = redirectUrl;
         }
     } catch (error) {
-        console.error('Error handling refresh token:', error);
         throw new Error('Network response was not ok');
     }
 }
