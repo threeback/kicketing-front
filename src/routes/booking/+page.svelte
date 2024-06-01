@@ -596,19 +596,22 @@
                     <input type="text" id="name" name="name" bind:value={name} required><br>
 
                     <label for="birthdate">생년월일</label>
-                    <input type="text" id="birthdate" name="birthdate" placeholder="예) 870201 (YYMMDD)"
+                    <input type="text" maxlength="6" id="birthdate" name="birthdate" placeholder="예) 870201 (YYMMDD)"
                            bind:value={birthDate} required><br>
 
                     <p class="note">생년월일을 정확히 입력해주세요. 가입 시 입력하신 정보와 다를 경우, 본인확인이 되지 않아 예매가 불가합니다.</p>
 
                     <label for="contact">연락처</label>
                     <div class="contact-container">
-                        <input type="text" id="contact" name="contact1" bind:value={contact1} on:input={updateContact}
+                        <input type="text" maxlength="3" id="contact" name="contact1" bind:value={contact1}
+                               on:input={updateContact}
                                required>
                         <span class="hipen">-</span>
-                        <input type="text" name="contact2" bind:value={contact2} on:input={updateContact} required>
+                        <input type="text" maxlength="4" name="contact2" bind:value={contact2}
+                               on:input={updateContact} required>
                         <span class="hipen">-</span>
-                        <input type="text" name="contact3" bind:value={contact3} on:input={updateContact} required>
+                        <input type="text" maxlength="4" name="contact3" bind:value={contact3}
+                               on:input={updateContact} required>
                     </div>
                     <br>
                     <label for="email">이메일</label>
