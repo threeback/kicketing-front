@@ -111,8 +111,8 @@ export async function refreshAccessToken() {
         if (!response.ok) {
             removeRefreshToken();
             setLogout();
-            window.location.href = "/";
             alert("로그인 세션이 만료되었습니다. 다시 로그인 해주세요.")
+            window.location.href = "/";
         } else {
             setLogin();
         }
