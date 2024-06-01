@@ -320,6 +320,7 @@
             response.json().then(body => {
                 alert(body.errorMessage); // 오류 메시지를 alert 창에 표시
             });
+            window.location.reload();
         }
     }
 
@@ -342,11 +343,8 @@
 
             if (response.ok) {
                 const result = await response.json();
-                console.log(result)
                 orderNumber = result.orderNumber;
-                console.log(orderNumber)
                 id += 1;
-                console.log(id)
             } else {
                 response.json().then(body => {
                     console.log(body.errorMessage); // 오류 메시지를 alert 창에 표시
