@@ -2,6 +2,8 @@
     import {endpoints} from "$lib/api";
     import {onMount} from "svelte";
     import {writable} from "svelte/store";
+    import SearchBox from "./search/box/search_box.svelte";
+    import {fetchPerformances, name} from "$lib/stores/performance.js";
 
 
     let performances = writable([]);
@@ -22,8 +24,6 @@
         }
     });
 
-    // 검색어 상태
-    let searchTerm = '';
 </script>
 
 <style>
@@ -84,14 +84,6 @@
 </style>
 
 <main class="container">
-    <div class="search-box" style="text-align: center">
-        <input type="text" placeholder="검색할 공연 정보를 입력해주세요." bind:value={searchTerm}>
-
-        <button class="search-button">
-            <img src="src/lib/images/main/search.png" alt=""/>
-        </button>
-
-    </div>
     <div class="additional-icon">
         <a href="/signin">
             <button class="event-info-button">콘서트</button>
