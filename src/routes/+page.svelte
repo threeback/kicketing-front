@@ -2,9 +2,12 @@
     import {endpoints} from "$lib/api";
     import {onMount} from "svelte";
     import {writable} from "svelte/store";
+    import SearchBox from "./search/box/search_box.svelte";
+    import {fetchPerformances, name} from "$lib/stores/performance.js";
 
 
     let performances = writable([]);
+    const performanceDetailUrl = "/goods?performance=";
 
     onMount(async () => {
         try {
@@ -21,8 +24,6 @@
         }
     });
 
-    // 검색어 상태
-    let searchTerm = '';
 </script>
 
 <style>
@@ -35,6 +36,7 @@
         margin: 5px;
         box-shadow: 0 0 3px #333;
     }
+
     .performance-poster {
         width: 100%;
         height: 55%;
@@ -82,14 +84,6 @@
 </style>
 
 <main class="container">
-    <div class="search-box" style="text-align: center">
-        <input type="text" placeholder="검색할 공연 정보를 입력해주세요." bind:value={searchTerm}>
-
-        <button class="search-button">
-            <img src="src/lib/images/main/search.png" alt=""/>
-        </button>
-
-    </div>
     <div class="additional-icon">
         <a href="/signin">
             <button class="event-info-button">콘서트</button>
@@ -119,13 +113,13 @@
         {#each $performances as performance}
             <div class="performance-card">
                 <div class="performance-poster">
-                    <a href={performance.goto}>
+                    <a href={performanceDetailUrl+performance.simplePerformanceDTO.id}>
                         <img src="{performance.simplePerformanceDTO.imageUrl}" width="300px"
                              alt="{performance.simplePerformanceDTO.name}"/>
                     </a>
                 </div>
                 <div class="performance-info">
-                    <a href={performance.goto}>
+                    <a href={performanceDetailUrl+performance.simplePerformanceDTO.id}>
                         <div class="performance-title">{performance.simplePerformanceDTO.name}</div>
                         <div class="performance-details">
                             <p>{performance.placeDTO.name + " " + performance.placeDTO.hall}</p>

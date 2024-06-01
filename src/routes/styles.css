@@ -126,45 +126,6 @@ button {
 	position: relative;
 }
 
-.search-box {
-	display: flex;
-	margin-bottom: 20px;
-	position: relative;
-	width: 1000px;
-}
-
-.search-box input[type="text"] {
-	flex-grow: 1;
-	margin-left: 300px;
-	margin-right: 100px;
-	padding: 16px;
-	font-size: 19px;
-	border: 1px solid #ccc;
-	border-radius: 25px;
-
-}
-
-/* 검색 버튼 스타일 */
-.search-button {
-	margin-left: auto;
-	position: absolute;
-	top: 53%;
-	left: 840px;
-	transform: translateY(-50%);
-	background-color: #00ff0000;
-	border: none;
-	border-radius: 50%;
-	width: 53px;
-	height: 53px;
-	cursor: pointer;
-}
-
-/* 검색 버튼 아이콘 스타일 */
-.search-button img {
-	width: 30px;
-	height: 30px;
-}
-
 .performance-container {
 	display: flex;
 	flex-wrap: nowrap; /* 가로로만 나열되도록 설정 */
