@@ -70,6 +70,7 @@
 
 </style>
 
+<title>Kicketing</title>
 <main class="container">
     <Search_box on:search={handleSearch}/>
     <Additional_box />

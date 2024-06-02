@@ -34,7 +34,9 @@
     <a href="/promotion">
         <button class="event-info-button">이벤트</button>
     </a>
-    <button class="event-info-button" on:click={() => redirectToEventsPage('notice')}>공지사항</button>
+    <a href="/notice">
+        <button class="event-info-button">공지사항</button>
+    </a>
     <button class="event-info-button" on:click={() => redirectToEventsPage('notice')}>고객센터</button>
 </div>
 <hr>

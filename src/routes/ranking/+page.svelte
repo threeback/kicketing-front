@@ -83,13 +83,15 @@
     }
 </style>
 
+<title>장르별 보기 :: {genre}</title>
 <main class="container">
     <Search_box on:search={handleSearch}/>
     <Additional_box />
+    <h1 style="color: black; font-weight: bold ">{genre} 순위별 목록</h1>
     <div class="performance-container">
         {#each $performances as performance}
             { #if genre === performance.simplePerformanceDTO.genre }
-                <div class="performance-card">
+                <div class="performance-card"style="height: 370px">
                     <div class="performance-poster">
                         <a href={performanceDetailUrl+performance.simplePerformanceDTO.id}>
                             <img src="{performance.simplePerformanceDTO.imageUrl}" width="300px"
