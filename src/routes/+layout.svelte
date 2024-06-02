@@ -13,7 +13,11 @@
     </main>
     <hr/>
     <footer>
-        <div>Kicketing.&nbsp;All Rights Reserved.</div>
+        <div>48434 부산광역시 남구 수영로 309 경성대학교 8호관 3층 DB LAB
+            <br>
+            대표번호 051.663.5140
+            <br>
+            copyright ⓒ 2024 Kicketing.&nbsp;All Rights Reserved.</div>
     </footer>
 </div>
 

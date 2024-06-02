@@ -83,7 +83,7 @@
                              alt="{performance.simplePerformanceDTO.name}"/>
                     </a>
                 </div>
-                <div class="performance-info">
+                <div class="performance-info" style="backdrop-filter: blur(10px);">
                     <a href={performanceDetailUrl+performance.simplePerformanceDTO.id}>
                         <div class="performance-title">{performance.simplePerformanceDTO.name}</div>
                         <div class="performance-details">

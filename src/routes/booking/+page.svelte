@@ -346,9 +346,7 @@
                 orderNumber = result.orderNumber;
                 id += 1;
             } else {
-                response.json().then(body => {
-                    console.log(body.errorMessage); // 오류 메시지를 alert 창에 표시
-                });
+                alert("결제 서버에 문제가 생겼습니다.\n잠시 후 다시 시도해주세요.");
             }
         } catch (err) {
             console.log(err.message);
