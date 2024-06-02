@@ -391,7 +391,9 @@
                 <div style="margin-bottom: 5px">
                     {#if seatLefts.length > 0}
                         {#each seatLefts as seat}
-                            {seat.grade}등급 :&nbsp;{seat.count}&nbsp;석
+                            <div style="margin-bottom: 5px;">
+                                {seat.grade}&nbsp;등급 :&nbsp;&nbsp;{seat.count}&nbsp;석
+                            </div>
                         {/each}
                     {/if}
                 </div>

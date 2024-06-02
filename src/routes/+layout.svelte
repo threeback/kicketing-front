@@ -13,7 +13,7 @@
     </main>
     <hr/>
     <footer>
-        <div>Kicketing Corp. All Copyright reserved.</div>
+        <div>Kicketing.&nbsp;All Rights Reserved.</div>
     </footer>
 </div>
 
