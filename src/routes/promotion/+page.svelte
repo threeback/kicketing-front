@@ -1,5 +1,6 @@
 <script>
     import Additional_box from "../additional_box.svelte";
+
     let promotions = [
         { id: 1, title: 'BTS 콘서트 얼리버드 할인 이벤트', startDate: '2024년 6월 1일', endDate: '2024년 6월 10일' },
         { id: 2, title: '백예린 라이브 공연 선착순 할인 이벤트', startDate: '2024년 6월 5일', endDate: '2024년 6월 20일' },

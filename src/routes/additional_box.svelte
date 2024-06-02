@@ -37,7 +37,9 @@
     <a href="/notice">
         <button class="event-info-button">공지사항</button>
     </a>
-    <button class="event-info-button" on:click={() => redirectToEventsPage('notice')}>고객센터</button>
+    <a href="/service">
+    <button class="event-info-button">고객센터</button>
+</a>
 </div>
 <hr>
 <br>
