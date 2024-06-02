@@ -96,10 +96,10 @@
             <button class="event-info-button">뮤지컬</button>
         </a>
         <a href="/signin">
-            <button class="event-info-button">랭킹별 보기</button>
+            <button class="event-info-button">클래식</button>
         </a>
         <a href="/signin">
-            <button class="event-info-button">극장별 보기</button>
+            <button class="event-info-button">연극</button>
         </a>
         <a href="/signin">
             <button class="event-info-button">이벤트</button>
