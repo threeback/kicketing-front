@@ -1,15 +1,23 @@
-<script src="https://unpkg.com/swiper/swiper-bundle.min.js">
+<script>
+    import Search_box from "../search/box/search_box.svelte";
+    import Additional_box from "../additional_box.svelte";
     import {endpoints} from "$lib/api";
     import {onMount} from "svelte";
     import {writable} from "svelte/store";
-    import Search_box from "./search/box/search_box.svelte";
-    import Additional_box from "./additional_box.svelte";
     import {fetchPerformances, name} from "$lib/stores/performance.js";
 
     let performances = writable([]);
     const performanceDetailUrl = "/goods?performance=";
 
+    let genre = '';
+    let queryParams = {};
+
     onMount(async () => {
+        const params = new URLSearchParams(window.location.search);
+        params.forEach((value, key) => {
+            queryParams[key] = value;
+            genre = value;
+        });
         try {
             const response = await fetch(endpoints.performances + '/none?dateUnit=month&size=10', {
                 method: "GET"
@@ -20,7 +28,7 @@
             const result = await response.json();
             performances.set(result.performances);
         } catch (err) {
-            console.log(err.message); // 에러 발생 시 에러 메시지 저장
+            console.log(err.message);
         }
     });
 
@@ -28,6 +36,9 @@
         name.set(event.detail.searchTerm);
         fetchPerformances();
     }
+    //
+    // export let genre
+    // export let data
 </script>
 
 <style>
@@ -67,32 +78,35 @@
         text-shadow: -1px 0px black, 0px 1px black, 1px 0px black, 0px -1px black;
     }
 
-
+    a {
+        text-decoration: none
+    }
 </style>
 
 <main class="container">
     <Search_box on:search={handleSearch}/>
     <Additional_box />
-    <h1 style="color: black; font-weight: bold ">공연 목록</h1>
     <div class="performance-container">
         {#each $performances as performance}
-            <div class="performance-card">
-                <div class="performance-poster">
-                    <a href={performanceDetailUrl+performance.simplePerformanceDTO.id}>
-                        <img src="{performance.simplePerformanceDTO.imageUrl}" width="300px"
-                             alt="{performance.simplePerformanceDTO.name}"/>
-                    </a>
+            { #if genre === performance.simplePerformanceDTO.genre }
+                <div class="performance-card">
+                    <div class="performance-poster">
+                        <a href={performanceDetailUrl+performance.simplePerformanceDTO.id}>
+                            <img src="{performance.simplePerformanceDTO.imageUrl}" width="200px"
+                                 alt="{performance.simplePerformanceDTO.name}"/>
+                        </a>
+                    </div>
+                    <div class="performance-info">
+                        <a href={performanceDetailUrl+performance.simplePerformanceDTO.id}>
+                            <div class="performance-title">{performance.simplePerformanceDTO.name}</div>
+                            <div class="performance-details">
+                                <p>{performance.placeDTO.name + " " + performance.placeDTO.hall}</p>
+                                <p>{performance.simplePerformanceDTO.startDate + " ~ " + performance.simplePerformanceDTO.endDate}</p>
+                            </div>
+                        </a>
+                    </div>
                 </div>
-                <div class="performance-info">
-                    <a href={performanceDetailUrl+performance.simplePerformanceDTO.id}>
-                        <div class="performance-title">{performance.simplePerformanceDTO.name}</div>
-                        <div class="performance-details">
-                            <p>{performance.placeDTO.name + " " + performance.placeDTO.hall}</p>
-                            <p>{performance.simplePerformanceDTO.startDate + " ~ " + performance.simplePerformanceDTO.endDate}</p>
-                        </div>
-                    </a>
-                </div>
-            </div>
+            {/if}
         {/each}
     </div>
 </main>
