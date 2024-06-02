@@ -193,12 +193,20 @@
     const toggleDatePicker = () => (isOpen = !isOpen);
 
     const formatDate = (dateString) => {
-        let myDate = dateString && format(new Date(dateString), fetchFormat) || '';
+        let today = new Date(dateString)
+        let nextMonth = new Date(today.getFullYear().toString() + "-" +
+            ((today.getMonth() + 2) % 12).toString() + "-01")
+
+        let myDate = dateString && format(today, fetchFormat) || '';
+        let nextFirstDate = nextMonth && format(nextMonth, fetchFormat) || '';
+
         if (myDate !== (new Date() && format(new Date(), fetchFormat) || '')) {
             getBookableDates(myDate)
+            getBookableDates(nextFirstDate)
         }
         return dateString && format(new Date(dateString), dateFormat) || '';
     };
+
 
     const bookableFormatDate = (dateString) => {
         return dateString && format(new Date(dateString), bookableFormat) || '';
@@ -227,7 +235,12 @@
             placeDTO = (result.placeDTO);
             seatGrades = (result.seatGrades);
             stars = (result.stars);
-            await getBookableDates(new Date() && format(new Date(), fetchFormat) || '');
+            let today = new Date();
+            let nextMonth = new Date(today.getFullYear().toString() + "-" +
+                ((today.getMonth() + 2) % 12).toString() + "-01")
+            let nextFirstDate = nextMonth && format(nextMonth, fetchFormat) || '';
+            await getBookableDates(today && format(today, fetchFormat) || '');
+            await getBookableDates(nextFirstDate)
         } catch (err) {
             console.log(err.message);
         }
