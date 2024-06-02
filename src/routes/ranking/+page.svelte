@@ -92,7 +92,7 @@
                 <div class="performance-card">
                     <div class="performance-poster">
                         <a href={performanceDetailUrl+performance.simplePerformanceDTO.id}>
-                            <img src="{performance.simplePerformanceDTO.imageUrl}" width="200px"
+                            <img src="{performance.simplePerformanceDTO.imageUrl}" width="300px"
                                  alt="{performance.simplePerformanceDTO.name}"/>
                         </a>
                     </div>
