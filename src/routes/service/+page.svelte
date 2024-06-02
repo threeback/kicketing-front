@@ -9,6 +9,7 @@
         margin-left: 170px;
         margin-right: 170px;
         flex-wrap: wrap;
+        justify-content: center;
     }
 
     button {
