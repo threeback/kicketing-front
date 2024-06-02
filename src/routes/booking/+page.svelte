@@ -317,8 +317,12 @@
         if (response.ok) {
             id += 1;
         } else {
-            response.json().then(body => {
-                alert(body.errorMessage); // 오류 메시지를 alert 창에 표시
+            await response.json().then(body => {
+                let seats = '';
+                if (body.errorMessage === "이미 예약된 좌석"){
+                    seats = body.seats.map(seat => `${seat.col}열 ${seat.row}석`).join(', ');
+                }
+                alert(seats + "\n" +body.errorMessage); // 오류 메시지를 alert 창에 표시
             });
             window.location.reload();
         }
@@ -375,8 +379,12 @@
             alert('예매가 완료되었습니다.');
             window.location.href = `/goods?performance=${performanceUUID}`;
         } else {
-            response.json().then(body => {
-                alert(body.errorMessage); // 오류 메시지를 alert 창에 표시
+            await response.json().then(body => {
+                let seats = '';
+                if (body.errorMessage === "이미 예약된 좌석"){
+                    seats = body.seats.map(seat => `${seat.col}열 ${seat.row}석`).join(', ');
+                }
+                alert(seats + body.errorMessage); // 오류 메시지를 alert 창에 표시
             });
         }
     }
@@ -461,15 +469,16 @@
                                 <input id="seat{index}" type="checkbox" name="seat" value="{seat.seatCol}{seat.seatRow}"
                                        bind:checked={seat.checked} disabled>
                                 <span class="on x-mark" style="background-color: rgba(255,166,0,0.34); display: flex;
-                                align-items: center; justify-content: center" >{seat.grade}</span>
+                                align-items: center; justify-content: center">{seat.grade}</span>
                             </label>
                         { :else }
                             <label for="seat{index}" class="radio_box">
                                 <input id="seat{index}" type="checkbox" name="seat" value="{seat.seatCol}{seat.seatRow}"
                                        bind:checked={seat.checked}>
-                                <span class="on" style="display: flex; align-items: center; justify-content: center">{seat.grade}</span>
+                                <span class="on"
+                                      style="display: flex; align-items: center; justify-content: center">{seat.grade}</span>
                             </label>
-                        { /if  }
+                        { /if   }
                     {/each}
                 </div>
 
@@ -498,8 +507,8 @@
                                 <td>{seat.seatRow}열 {seat.seatCol}석</td>
                                 <td>{seatGrades.find(grade => grade.grade === seat.grade).price.toLocaleString()}원</td>
                             </tr>
-                        { /if       }
-                    { /each        }
+                        { /if        }
+                    { /each         }
                 </table>
             </div>
             <button class="blue-button" on:click={nextPage}
@@ -512,8 +521,8 @@
                 <span>{seat.seatCol}{seat.seatRow}</span>
                 { #if index < selectedSeats.length - 1 }
                     <span>, </span>
-                { /if         }
-            { /each         }
+                { /if          }
+            { /each          }
             <span>의 총 { selectedSeats.length }개의 좌석을 선택하셨습니다.</span>
             <hr>
             <table class="table">
@@ -594,7 +603,7 @@
                 {:else if selectedDelivery === '현장수령'}
                     <p>티켓은 예매번호로 수령 가능합니다.</p>
                     <p style="font-size: 0.9em">티켓현장수령은 예매시 부여되는 "예매번호"로 관람일 당일 티켓을 수령하여 입장합니다.</p>
-                { /if         }
+                { /if          }
             </div>
             <div class="user-info">
                 <h3>예매자 확인</h3>
@@ -665,8 +674,8 @@
                 <span>{seat.seatCol}{seat.seatRow}석</span>
                 { #if index < selectedSeats.length - 1 }
                     <span>, </span>
-                { /if         }
-            { /each         }
+                { /if          }
+            { /each          }
             <br>
             <br>
             <span style="font-weight: bold; color: #000; font-size: 18px">예매자 성함: </span>
@@ -688,7 +697,7 @@
                 <br>
                 <span style="font-weight: bold; color: #000; font-size: 18px">수령할 주소: </span>
                 <span>{address}</span>
-            { /if         }
+            { /if          }
             <br>
             <br>
             <span style="font-weight: bold; color: #000; font-size: 18px">이메일: </span>
