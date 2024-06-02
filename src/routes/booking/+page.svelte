@@ -215,8 +215,8 @@
     import {endpoints} from "$lib/api.js";
     import {handleRefreshAccessToken, user} from "$lib/stores/auth.js";
 
-    let performanceUUID = '28f4caa7-84f8-4ff1-a4b7-ce0fc6e171bb';
-    let onStageId = 22;
+    let performanceUUID;
+    let onStageId;
 
     let id = 0;
     let seats = []
@@ -394,6 +394,15 @@
     let seatGrades = [];
 
     onMount(async () => {
+        const params = new URLSearchParams(window.location.search);
+        params.forEach((value, key) => {
+            if (key === 'performanceUUID') {
+                performanceUUID = value;
+            }
+            if (key === 'onStageId') {
+                onStageId = value;
+            }
+        });
         try {
             const response = await fetch(endpoints.reservation + `/${performanceUUID}/${onStageId}`, {
                 method: "GET",
