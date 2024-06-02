@@ -3,6 +3,7 @@
     import {onMount} from "svelte";
     import {writable} from "svelte/store";
     import Search_box from "./search/box/search_box.svelte";
+    import Additional_box from "./additional_box.svelte";
     import {fetchPerformances, name} from "$lib/stores/performance.js";
 
     let performances = writable([]);
@@ -66,52 +67,12 @@
         text-shadow: -1px 0px black, 0px 1px black, 1px 0px black, 0px -1px black;
     }
 
-    .additional-icon {
-        display: flex;
-        align-items: center;
-        justify-content: center; /* 좌우 중앙 정렬 */
-    }
 
-    .event-info-button {
-        margin: 10px;
-        background-color: #00ff0000;
-        color: #000;
-        border: none;
-        padding: 10px 20px;
-        border-radius: 5px;
-        cursor: pointer;
-        font-size: 22px; /* 원하는 크기로 조정 */
-        font-weight: bold; /* 볼드체 설정 */
-        white-space: nowrap; /* 텍스트가 한 줄에 모두 표시되도록 설정 */
-    }
 </style>
 
 <main class="container">
     <Search_box on:search={handleSearch}/>
-    <div class="additional-icon">
-        <a href="/signin">
-            <button class="event-info-button">콘서트</button>
-        </a>
-        <a href="/signin">
-            <button class="event-info-button">뮤지컬</button>
-        </a>
-        <a href="/signin">
-            <button class="event-info-button">클래식</button>
-        </a>
-        <a href="/signin">
-            <button class="event-info-button">연극</button>
-        </a>
-        <a href="/signin">
-            <button class="event-info-button">이벤트</button>
-        </a>
-        <a href="/signin">
-            <button class="event-info-button">공지사항</button>
-        </a>
-        <a href="/signin">
-            <button class="event-info-button">고객센터</button>
-        </a>
-    </div>
-    <hr>
+    <Additional_box />
     <h1 style="color: black; font-weight: bold ">공연 목록</h1>
     <div class="performance-container">
         {#each $performances as performance}
