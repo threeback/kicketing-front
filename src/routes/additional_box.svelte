@@ -31,7 +31,9 @@
     <button class="event-info-button" on:click={() => redirectToEventsPage('뮤지컬')}>뮤지컬</button>
     <button class="event-info-button" on:click={() => redirectToEventsPage('클래식')}>클래식</button>
     <button class="event-info-button" on:click={() => redirectToEventsPage('연극')}>연극</button>
-    <button class="event-info-button" on:click={() => redirectToEventsPage('event')}>이벤트</button>
+    <a href="/promotion">
+        <button class="event-info-button">이벤트</button>
+    </a>
     <button class="event-info-button" on:click={() => redirectToEventsPage('notice')}>공지사항</button>
     <button class="event-info-button" on:click={() => redirectToEventsPage('notice')}>고객센터</button>
 </div>
