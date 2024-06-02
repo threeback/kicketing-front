@@ -9,8 +9,8 @@
     }
 </script>
 
-<div class="performance-card" on:click={handleClick} style="height: 500px">
-    <div class="performance-poster">
+<div class="performance-card" on:click={handleClick} style="height: 540px">
+    <div class="performance-poster" style="height: 380px">
         <img src="{performance.imageUrl}" alt="{performance.name}" class="performance-image"/>
     </div>
     <div class="performance-info">
