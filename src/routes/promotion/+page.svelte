@@ -39,6 +39,7 @@
     }
 </style>
 
+<title>이벤트</title>
 <main class="container">
     <Additional_box />
     <h2>진행 중인 이벤트 현황</h2>
@@ -46,7 +47,7 @@
     <div class="promotion-container">
         <span class="promotion-id">번호</span>
         <span style="margin-left: 430px">이벤트</span>
-        <span style="margin-left: 470px">진행 날짜</span>
+        <span style="margin-left: 540px">진행 날짜</span>
     </div>
     { #each promotions as promotion }
         <hr>
