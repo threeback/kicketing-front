@@ -92,7 +92,7 @@ if (typeof localStorage !== 'undefined' && localStorage.getItem('refreshToken'))
     refreshToken.set(localStorage.getItem('refreshToken'));
 }
 
-export async function refreshAccessToken() {
+export async function refreshAccessToken(redirectUrl) {
     let token;
     refreshToken.subscribe(value => {
         token = value;
@@ -115,6 +115,7 @@ export async function refreshAccessToken() {
             window.location.href = "/";
         } else {
             setLogin();
+            window.location.href = redirectUrl;
         }
 
     } catch (error) {
@@ -127,9 +128,8 @@ export async function handleRefreshAccessToken(response, redirectUrl) {
     try {
         const errorData = await response.text();
         if (errorData === "[ACCESS_TOKEN] 토큰 추출 실패" || errorData === "[ACCESS_TOKEN] JWT 토큰 만료") {
-            await refreshAccessToken();
+            await refreshAccessToken(redirectUrl);
             // 여기에서 리다이렉트를 수행할 수 있습니다.
-            window.location.href = redirectUrl;
         }
     } catch (error) {
         throw new Error('Network response was not ok');
