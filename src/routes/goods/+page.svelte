@@ -202,7 +202,6 @@
 
         if (myDate !== (new Date() && format(new Date(), fetchFormat) || '')) {
             getBookableDates(myDate)
-            getBookableDates(nextFirstDate)
         }
         return dateString && format(new Date(dateString), dateFormat) || '';
     };
