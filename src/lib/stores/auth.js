@@ -129,7 +129,6 @@ export async function handleRefreshAccessToken(response, redirectUrl) {
         const errorData = await response.text();
         if (errorData === "[ACCESS_TOKEN] 토큰 추출 실패" || errorData === "[ACCESS_TOKEN] JWT 토큰 만료") {
             await refreshAccessToken(redirectUrl);
-            // 여기에서 리다이렉트를 수행할 수 있습니다.
         }
     } catch (error) {
         throw new Error('Network response was not ok');
