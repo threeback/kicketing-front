@@ -1,0 +1,112 @@
+<script>
+    import Search_box from "../search/box/search_box.svelte";
+    import Additional_box from "../additional_box.svelte";
+    import {endpoints} from "$lib/api";
+    import {onMount} from "svelte";
+    import {writable} from "svelte/store";
+    import {fetchPerformances, name} from "$lib/stores/performance.js";
+
+    let performances = writable([]);
+    const performanceDetailUrl = "/goods?performance=";
+
+    let genre = '';
+    let queryParams = {};
+
+    onMount(async () => {
+        const params = new URLSearchParams(window.location.search);
+        params.forEach((value, key) => {
+            queryParams[key] = value;
+            genre = value;
+        });
+        try {
+            const response = await fetch(endpoints.performances + '/none?dateUnit=month&size=10', {
+                method: "GET"
+            });
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            const result = await response.json();
+            performances.set(result.performances);
+        } catch (err) {
+            console.log(err.message);
+        }
+    });
+
+    function handleSearch(event) {
+        name.set(event.detail.searchTerm);
+        fetchPerformances();
+    }
+    //
+    // export let genre
+    // export let data
+</script>
+
+<style>
+    .performance-container {
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+
+    .performance-card {
+        margin: 5px;
+        box-shadow: 0 0 3px #333;
+    }
+
+    .performance-poster {
+        width: 100%;
+        height: 55%;
+        max-width: 100%;
+        border-bottom: 1px solid #ccc;
+    }
+
+    .performance-info {
+        padding: 15px;
+        margin: 10px;
+    }
+
+    .performance-title {
+        font-size: 18px;
+        color: #fff;
+        font-weight: bold;
+        margin-bottom: 5px;
+        text-shadow: -1px 0px black, 0px 1px black, 1px 0px black, 0px -1px black;
+    }
+
+    .performance-details {
+        font-size: 14px;
+        color: #fff;
+        text-shadow: -1px 0px black, 0px 1px black, 1px 0px black, 0px -1px black;
+    }
+
+    a {
+        text-decoration: none
+    }
+</style>
+
+<main class="container">
+    <Search_box on:search={handleSearch}/>
+    <Additional_box />
+    <div class="performance-container">
+        {#each $performances as performance}
+            { #if genre === performance.simplePerformanceDTO.genre }
+                <div class="performance-card">
+                    <div class="performance-poster">
+                        <a href={performanceDetailUrl+performance.simplePerformanceDTO.id}>
+                            <img src="{performance.simplePerformanceDTO.imageUrl}" width="200px"
+                                 alt="{performance.simplePerformanceDTO.name}"/>
+                        </a>
+                    </div>
+                    <div class="performance-info">
+                        <a href={performanceDetailUrl+performance.simplePerformanceDTO.id}>
+                            <div class="performance-title">{performance.simplePerformanceDTO.name}</div>
+                            <div class="performance-details">
+                                <p>{performance.placeDTO.name + " " + performance.placeDTO.hall}</p>
+                                <p>{performance.simplePerformanceDTO.startDate + " ~ " + performance.simplePerformanceDTO.endDate}</p>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            {/if}
+        {/each}
+    </div>
+</main>
