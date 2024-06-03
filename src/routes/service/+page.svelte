@@ -1,7 +1,3 @@
-<script>
-    import Additional_box from "../additional_box.svelte";
-</script>
-
 <style>
     .service-container {
         display: flex;
@@ -32,6 +28,14 @@
     }
 </style>
 
+<script>
+    import Additional_box from "../additional_box.svelte";
+
+    function hrefKakaoTalk() {
+        window.open("http://pf.kakao.com/_euYtG/chat");
+    }
+</script>
+
 <title>고객센터</title>
 <main class="container">
     <Additional_box />
@@ -46,7 +50,7 @@
             FAQ
         </button>
         <br>
-        <button>
+        <button on:click={hrefKakaoTalk}>
             <img src="/consultation.png" alt="">
             상담원 연결
         </button>
