@@ -20,14 +20,6 @@
         }
     }
 
-    onMount(() => {
-        document.addEventListener('keydown', handleKeyDown);
-    });
-
-    onDestroy(() => {
-        document.removeEventListener('keydown', handleKeyDown);
-    });
-
     async function handleLogin() {
 
         if (email.trim() == "" || password.trim() == "") {
@@ -99,7 +91,7 @@
 <div class="container">
     <h2>로그인</h2>
     <input type="text" placeholder="아이디" bind:value={email}/>
-    <input type="password" placeholder="비밀번호" bind:value={password}/>
+    <input type="password" placeholder="비밀번호" bind:value={password} on:keypress={handleKeyDown}/>
 
     <div class="auth-buttons">
         <span>아직 키켓팅의 회원이 아니라면?</span>
